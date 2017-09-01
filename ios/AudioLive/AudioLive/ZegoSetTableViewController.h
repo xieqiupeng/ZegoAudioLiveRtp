@@ -1,6 +1,6 @@
 //
 //  ZegoSetTableViewController.h
-//  LiveDemo3
+//  AudioLive
 //
 //  Created by Strong on 16/6/22.
 //  Copyright © 2016年 ZEGO. All rights reserved.

@@ -20,3 +20,5 @@ FOUNDATION_EXPORT const unsigned char ZegoAudioRoomVersionString[];
 #import <ZegoAudioRoom/ZegoAudioRoomApi-Player.h>
 #import <ZegoAudioRoom/ZegoAudioRoomApi-Publisher.h>
 #import <ZegoAudioRoom/ZegoAudioRoomApiDefines.h>
+#import <ZegoAudioRoom/ZegoAudioRoomApiDefines-IM.h>
+#import <ZegoAudioRoom/ZegoAudioRoomApi-IM.h>

@@ -16,6 +16,8 @@
 @property (nonatomic, copy) NSString *userID;
 @property (nonatomic, copy) NSString *userName;
 
+@property (nonatomic, readonly) NSArray *appTypeList;
+
 - (void)cleanLocalUser;
 
 - (BOOL)isDeviceiOS7;

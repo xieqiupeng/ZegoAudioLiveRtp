@@ -7,21 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		163FEEB11F33265100FA86E6 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163FEEB01F33265100FA86E6 /* MessageUI.framework */; };
+		164D47F11F134ADC00CDBF68 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */; };
+		164D47F21F134B8700CDBF68 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7101D659CF000A764FC /* Security.framework */; };
+		164D47F31F134BC500CDBF68 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70A1D659CCE00A764FC /* libz.tbd */; };
+		164D47F61F134BD000CDBF68 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 164D47F51F134BD000CDBF68 /* libc++.tbd */; };
+		164D47F71F134C1D00CDBF68 /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF422A8D1E7A9B3700FA1C8C /* Bugly.framework */; };
+		16756FD11F5901EF003252AB /* ZegoShareLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16756FD01F5901EF003252AB /* ZegoShareLogViewController.m */; };
+		16756FD21F5901EF003252AB /* ZegoShareLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 16756FD01F5901EF003252AB /* ZegoShareLogViewController.m */; };
+		16CD53D11F3C3EDA003D43B3 /* SSZipArchive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CD53D01F3C3EDA003D43B3 /* SSZipArchive.framework */; };
+		16CD53F31F3C3F63003D43B3 /* SSZipArchive.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 16CD53D01F3C3EDA003D43B3 /* SSZipArchive.framework */; };
 		EF0C27701E531C49009447A7 /* ZegoVideoRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0C276F1E531C49009447A7 /* ZegoVideoRootViewController.m */; };
 		EF110E151D33B691000620CD /* ZegoAudioLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E141D33B691000620CD /* ZegoAudioLiveViewController.m */; };
-		EF32D70B1D659CCE00A764FC /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70A1D659CCE00A764FC /* libz.tbd */; };
-		EF32D70D1D659CD900A764FC /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70C1D659CD900A764FC /* libstdc++.tbd */; };
-		EF32D70F1D659CE100A764FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D70E1D659CE100A764FC /* CoreGraphics.framework */; };
-		EF32D7111D659CF000A764FC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7101D659CF000A764FC /* Security.framework */; };
-		EF32D7131D659DAD00A764FC /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7121D659DAD00A764FC /* libsqlite3.tbd */; };
-		EF32D7151D659DBC00A764FC /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */; };
-		EF422A8E1E7A9B3700FA1C8C /* Bugly.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF422A8D1E7A9B3700FA1C8C /* Bugly.framework */; };
-		EF68681E1E7A3163004E17D2 /* ZegoAudioRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF68681D1E7A3163004E17D2 /* ZegoAudioRoom.framework */; };
-		EF6868201E7A3184004E17D2 /* ZegoAudioRoom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EF68681D1E7A3163004E17D2 /* ZegoAudioRoom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		EF57BC291F3B0A9E0062A2A9 /* ZegoAudioRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC8BFAE1F274401008E92A1 /* ZegoAudioRoom.framework */; };
+		EF57BC2A1F3B0AC50062A2A9 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A081D2DF1FC00715B6B /* AVFoundation.framework */; };
+		EF57BC2B1F3B0ACD0062A2A9 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A041D2DF1E800715B6B /* CoreTelephony.framework */; };
+		EF57BC2D1F3B0B020062A2A9 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF57BC2C1F3B0B020062A2A9 /* AudioToolbox.framework */; };
+		EF57BC2F1F3B0B340062A2A9 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */; };
 		EF6B39A51E8371FB00A6D963 /* ZegoAudioLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF110E141D33B691000620CD /* ZegoAudioLiveViewController.m */; };
 		EF6B39A61E8371FB00A6D963 /* ZegoVideoRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF0C276F1E531C49009447A7 /* ZegoVideoRootViewController.m */; };
 		EF6B39A71E8371FB00A6D963 /* ZegoAVKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */; };
-		EF6B39A81E8371FB00A6D963 /* ZegoAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */; };
 		EF6B39A91E8371FB00A6D963 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C91D2DEFD200715B6B /* AppDelegate.m */; };
 		EF6B39AA1E8371FB00A6D963 /* ZegoLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */; };
 		EF6B39AB1E8371FB00A6D963 /* ZegoAdvancedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */; };
@@ -41,35 +46,33 @@
 		EF6B39C01E8371FB00A6D963 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D41D2DEFD200715B6B /* Assets.xcassets */; };
 		EF6B39C11E8371FB00A6D963 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D11D2DEFD200715B6B /* Main.storyboard */; };
 		EF6B39C21E8371FB00A6D963 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D91D2DEFD200715B6B /* Info.plist */; };
-		EF6B39CC1E83722600A6D963 /* ZegoAudioRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF68681D1E7A3163004E17D2 /* ZegoAudioRoom.framework */; };
 		EF7139C71D2DEFD200715B6B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C61D2DEFD200715B6B /* main.m */; };
 		EF7139CA1D2DEFD200715B6B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = EF7139C91D2DEFD200715B6B /* AppDelegate.m */; };
 		EF7139D31D2DEFD200715B6B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D11D2DEFD200715B6B /* Main.storyboard */; };
 		EF7139D51D2DEFD200715B6B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D41D2DEFD200715B6B /* Assets.xcassets */; };
 		EF7139D81D2DEFD200715B6B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D61D2DEFD200715B6B /* LaunchScreen.storyboard */; };
-		EF713A031D2DF1DE00715B6B /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A021D2DF1DE00715B6B /* libiconv.tbd */; };
-		EF713A051D2DF1E800715B6B /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A041D2DF1E800715B6B /* CoreTelephony.framework */; };
-		EF713A071D2DF1F300715B6B /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A061D2DF1F300715B6B /* CoreMedia.framework */; };
-		EF713A091D2DF1FC00715B6B /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A081D2DF1FC00715B6B /* AVFoundation.framework */; };
-		EF713A0B1D2DF20600715B6B /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */; };
 		EF713A131D2DF6F000715B6B /* ZegoSetTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A121D2DF6F000715B6B /* ZegoSetTableViewController.m */; };
 		EF713A161D2DF76000715B6B /* ZegoAVKitManager.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */; };
 		EF713A191D2DF76A00715B6B /* ZegoSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A181D2DF76A00715B6B /* ZegoSettings.m */; };
-		EF713A281D2DF92D00715B6B /* ZegoAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */; };
 		EF713A291D2DF92D00715B6B /* ZegoAdvancedTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */; };
 		EF71EA271E712A9400723EF7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF7139D91D2DEFD200715B6B /* Info.plist */; };
+		EF9F415F1F3B0478003F7C0F /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF9F415E1F3B0477003F7C0F /* SafariServices.framework */; };
+		EF9F41601F3B0488003F7C0F /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF9F415E1F3B0477003F7C0F /* SafariServices.framework */; };
+		EF9F41631F3B04B4003F7C0F /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 163FEEB01F33265100FA86E6 /* MessageUI.framework */; };
+		EFC8BFAF1F274407008E92A1 /* ZegoAudioRoom.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EFC8BFAE1F274401008E92A1 /* ZegoAudioRoom.framework */; };
+		EFC8BFB01F274408008E92A1 /* ZegoAudioRoom.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = EFC8BFAE1F274401008E92A1 /* ZegoAudioRoom.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		EFFBF7551D3887A8002FD7F2 /* ZegoLogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */; };
 		EFFBF7701D3C74A1002FD7F2 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = EFFBF7721D3C74A1002FD7F2 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		EFA8CAD51E54380100EDB51D /* Embed Frameworks */ = {
+		EFC8BFB11F274408008E92A1 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				EF6868201E7A3184004E17D2 /* ZegoAudioRoom.framework in Embed Frameworks */,
+				EFC8BFB01F274408008E92A1 /* ZegoAudioRoom.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,10 +80,19 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		163FEEB01F33265100FA86E6 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		163FEEE11F3498D400FA86E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		163FEEE21F3498DB00FA86E6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		163FEEED1F34A8AB00FA86E6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		163FEEEE1F34A8BB00FA86E6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		164D47F51F134BD000CDBF68 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
+		16756FCF1F5901EF003252AB /* ZegoShareLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoShareLogViewController.h; sourceTree = "<group>"; };
+		16756FD01F5901EF003252AB /* ZegoShareLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoShareLogViewController.m; sourceTree = "<group>"; };
+		16CD53D01F3C3EDA003D43B3 /* SSZipArchive.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SSZipArchive.framework; sourceTree = "<group>"; };
 		EF0C276E1E531C49009447A7 /* ZegoVideoRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoVideoRootViewController.h; sourceTree = "<group>"; };
 		EF0C276F1E531C49009447A7 /* ZegoVideoRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoVideoRootViewController.m; sourceTree = "<group>"; };
 		EF110E131D33B691000620CD /* ZegoAudioLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAudioLiveViewController.h; sourceTree = "<group>"; };
-		EF110E141D33B691000620CD /* ZegoAudioLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAudioLiveViewController.m; sourceTree = "<group>"; };
+		EF110E141D33B691000620CD /* ZegoAudioLiveViewController.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = ZegoAudioLiveViewController.m; sourceTree = "<group>"; };
 		EF32D70A1D659CCE00A764FC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		EF32D70C1D659CD900A764FC /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		EF32D70E1D659CE100A764FC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -89,9 +101,8 @@
 		EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		EF4184BD1D41F1EB00B2A383 /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
 		EF422A8D1E7A9B3700FA1C8C /* Bugly.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bugly.framework; sourceTree = "<group>"; };
-		EF68681D1E7A3163004E17D2 /* ZegoAudioRoom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZegoAudioRoom.framework; sourceTree = "<group>"; };
+		EF57BC2C1F3B0B020062A2A9 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		EF6B39CA1E8371FB00A6D963 /* AudioLiveiOS7.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioLiveiOS7.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		EF6B39CB1E8371FB00A6D963 /* AudioLive copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "AudioLive copy-Info.plist"; path = "/Users/Strong/Desktop/zegolivedemo/projects/apple/AudioLive/AudioLive copy-Info.plist"; sourceTree = "<absolute>"; };
 		EF7139C21D2DEFD200715B6B /* AudioLive.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AudioLive.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF7139C61D2DEFD200715B6B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		EF7139C81D2DEFD200715B6B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -111,11 +122,11 @@
 		EF713A151D2DF76000715B6B /* ZegoAVKitManager.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ZegoAVKitManager.m; sourceTree = "<group>"; };
 		EF713A171D2DF76A00715B6B /* ZegoSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoSettings.h; sourceTree = "<group>"; };
 		EF713A181D2DF76A00715B6B /* ZegoSettings.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = ZegoSettings.m; sourceTree = "<group>"; };
-		EF713A241D2DF92D00715B6B /* ZegoAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAboutViewController.h; sourceTree = "<group>"; };
-		EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAboutViewController.m; sourceTree = "<group>"; };
 		EF713A261D2DF92D00715B6B /* ZegoAdvancedTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoAdvancedTableViewController.h; sourceTree = "<group>"; };
 		EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoAdvancedTableViewController.m; sourceTree = "<group>"; };
+		EF9F415E1F3B0477003F7C0F /* SafariServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SafariServices.framework; path = System/Library/Frameworks/SafariServices.framework; sourceTree = SDKROOT; };
 		EFAC2FDE1D4AFA76000A7885 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		EFC8BFAE1F274401008E92A1 /* ZegoAudioRoom.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZegoAudioRoom.framework; sourceTree = "<group>"; };
 		EFFBF7531D3887A8002FD7F2 /* ZegoLogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZegoLogTableViewController.h; sourceTree = "<group>"; };
 		EFFBF7541D3887A8002FD7F2 /* ZegoLogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZegoLogTableViewController.m; sourceTree = "<group>"; };
 		EFFBF7711D3C74A1002FD7F2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -126,7 +137,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF6B39CC1E83722600A6D963 /* ZegoAudioRoom.framework in Frameworks */,
+				16CD53F31F3C3F63003D43B3 /* SSZipArchive.framework in Frameworks */,
+				EF57BC2F1F3B0B340062A2A9 /* VideoToolbox.framework in Frameworks */,
+				EF57BC2D1F3B0B020062A2A9 /* AudioToolbox.framework in Frameworks */,
+				EF57BC2B1F3B0ACD0062A2A9 /* CoreTelephony.framework in Frameworks */,
+				EF57BC2A1F3B0AC50062A2A9 /* AVFoundation.framework in Frameworks */,
+				EF57BC291F3B0A9E0062A2A9 /* ZegoAudioRoom.framework in Frameworks */,
+				EF9F41631F3B04B4003F7C0F /* MessageUI.framework in Frameworks */,
+				EF9F41601F3B0488003F7C0F /* SafariServices.framework in Frameworks */,
 				EF6B39B01E8371FB00A6D963 /* Bugly.framework in Frameworks */,
 				EF6B39B11E8371FB00A6D963 /* SystemConfiguration.framework in Frameworks */,
 				EF6B39B21E8371FB00A6D963 /* libsqlite3.tbd in Frameworks */,
@@ -142,28 +160,48 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EF422A8E1E7A9B3700FA1C8C /* Bugly.framework in Frameworks */,
-				EF32D7151D659DBC00A764FC /* SystemConfiguration.framework in Frameworks */,
-				EF32D7131D659DAD00A764FC /* libsqlite3.tbd in Frameworks */,
-				EF32D7111D659CF000A764FC /* Security.framework in Frameworks */,
-				EF32D70F1D659CE100A764FC /* CoreGraphics.framework in Frameworks */,
-				EF32D70D1D659CD900A764FC /* libstdc++.tbd in Frameworks */,
-				EF32D70B1D659CCE00A764FC /* libz.tbd in Frameworks */,
-				EF713A0B1D2DF20600715B6B /* VideoToolbox.framework in Frameworks */,
-				EF68681E1E7A3163004E17D2 /* ZegoAudioRoom.framework in Frameworks */,
-				EF713A091D2DF1FC00715B6B /* AVFoundation.framework in Frameworks */,
-				EF713A071D2DF1F300715B6B /* CoreMedia.framework in Frameworks */,
-				EF713A051D2DF1E800715B6B /* CoreTelephony.framework in Frameworks */,
-				EF713A031D2DF1DE00715B6B /* libiconv.tbd in Frameworks */,
+				EF9F415F1F3B0478003F7C0F /* SafariServices.framework in Frameworks */,
+				163FEEB11F33265100FA86E6 /* MessageUI.framework in Frameworks */,
+				164D47F71F134C1D00CDBF68 /* Bugly.framework in Frameworks */,
+				EFC8BFAF1F274407008E92A1 /* ZegoAudioRoom.framework in Frameworks */,
+				16CD53D11F3C3EDA003D43B3 /* SSZipArchive.framework in Frameworks */,
+				164D47F61F134BD000CDBF68 /* libc++.tbd in Frameworks */,
+				164D47F31F134BC500CDBF68 /* libz.tbd in Frameworks */,
+				164D47F21F134B8700CDBF68 /* Security.framework in Frameworks */,
+				164D47F11F134ADC00CDBF68 /* SystemConfiguration.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		16CD53CF1F3C3E7C003D43B3 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				164D47F51F134BD000CDBF68 /* libc++.tbd */,
+				EF32D7121D659DAD00A764FC /* libsqlite3.tbd */,
+				EF32D70C1D659CD900A764FC /* libstdc++.tbd */,
+				EF32D70A1D659CCE00A764FC /* libz.tbd */,
+				EF4184BD1D41F1EB00B2A383 /* libresolv.tbd */,
+				EF713A021D2DF1DE00715B6B /* libiconv.tbd */,
+				EF32D7101D659CF000A764FC /* Security.framework */,
+				EF32D70E1D659CE100A764FC /* CoreGraphics.framework */,
+				EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */,
+				EF713A081D2DF1FC00715B6B /* AVFoundation.framework */,
+				EF713A061D2DF1F300715B6B /* CoreMedia.framework */,
+				EF713A041D2DF1E800715B6B /* CoreTelephony.framework */,
+				EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */,
+				163FEEB01F33265100FA86E6 /* MessageUI.framework */,
+				EF9F415E1F3B0477003F7C0F /* SafariServices.framework */,
+				EF57BC2C1F3B0B020062A2A9 /* AudioToolbox.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		EF422A8C1E7A9B3700FA1C8C /* thirdLib */ = {
 			isa = PBXGroup;
 			children = (
+				16CD53D01F3C3EDA003D43B3 /* SSZipArchive.framework */,
 				EF422A8D1E7A9B3700FA1C8C /* Bugly.framework */,
 			);
 			path = thirdLib;
@@ -172,10 +210,9 @@
 		EF7139B91D2DEFD200715B6B = {
 			isa = PBXGroup;
 			children = (
-				EF7139DF1D2DF18700715B6B /* framework */,
+				EF7139DF1D2DF18700715B6B /* Frameworks */,
 				EF7139C41D2DEFD200715B6B /* AudioLive */,
 				EF7139C31D2DEFD200715B6B /* Products */,
-				EF6B39CB1E8371FB00A6D963 /* AudioLive copy-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -195,10 +232,10 @@
 				EF7139C91D2DEFD200715B6B /* AppDelegate.m */,
 				EF713A111D2DF6F000715B6B /* ZegoSetTableViewController.h */,
 				EF713A121D2DF6F000715B6B /* ZegoSetTableViewController.m */,
+				16756FCF1F5901EF003252AB /* ZegoShareLogViewController.h */,
+				16756FD01F5901EF003252AB /* ZegoShareLogViewController.m */,
 				EF0C276E1E531C49009447A7 /* ZegoVideoRootViewController.h */,
 				EF0C276F1E531C49009447A7 /* ZegoVideoRootViewController.m */,
-				EF713A241D2DF92D00715B6B /* ZegoAboutViewController.h */,
-				EF713A251D2DF92D00715B6B /* ZegoAboutViewController.m */,
 				EF713A261D2DF92D00715B6B /* ZegoAdvancedTableViewController.h */,
 				EF713A271D2DF92D00715B6B /* ZegoAdvancedTableViewController.m */,
 				EF110E131D33B691000620CD /* ZegoAudioLiveViewController.h */,
@@ -227,31 +264,20 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		EF7139DF1D2DF18700715B6B /* framework */ = {
+		EF7139DF1D2DF18700715B6B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				16CD53CF1F3C3E7C003D43B3 /* iOS */,
 				EF422A8C1E7A9B3700FA1C8C /* thirdLib */,
 				EF7139E01D2DF1A400715B6B /* libs */,
-				EF32D7141D659DBC00A764FC /* SystemConfiguration.framework */,
-				EF32D7121D659DAD00A764FC /* libsqlite3.tbd */,
-				EF32D7101D659CF000A764FC /* Security.framework */,
-				EF32D70E1D659CE100A764FC /* CoreGraphics.framework */,
-				EF32D70C1D659CD900A764FC /* libstdc++.tbd */,
-				EF32D70A1D659CCE00A764FC /* libz.tbd */,
-				EF4184BD1D41F1EB00B2A383 /* libresolv.tbd */,
-				EF713A0A1D2DF20600715B6B /* VideoToolbox.framework */,
-				EF713A081D2DF1FC00715B6B /* AVFoundation.framework */,
-				EF713A061D2DF1F300715B6B /* CoreMedia.framework */,
-				EF713A041D2DF1E800715B6B /* CoreTelephony.framework */,
-				EF713A021D2DF1DE00715B6B /* libiconv.tbd */,
 			);
-			name = framework;
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		EF7139E01D2DF1A400715B6B /* libs */ = {
 			isa = PBXGroup;
 			children = (
-				EF68681D1E7A3163004E17D2 /* ZegoAudioRoom.framework */,
+				EFC8BFAE1F274401008E92A1 /* ZegoAudioRoom.framework */,
 			);
 			path = libs;
 			sourceTree = "<group>";
@@ -287,7 +313,7 @@
 				EF7139BE1D2DEFD200715B6B /* Sources */,
 				EF7139BF1D2DEFD200715B6B /* Frameworks */,
 				EF7139C01D2DEFD200715B6B /* Resources */,
-				EFA8CAD51E54380100EDB51D /* Embed Frameworks */,
+				EFC8BFB11F274408008E92A1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -436,13 +462,13 @@
 				EF6B39A51E8371FB00A6D963 /* ZegoAudioLiveViewController.m in Sources */,
 				EF6B39A61E8371FB00A6D963 /* ZegoVideoRootViewController.m in Sources */,
 				EF6B39A71E8371FB00A6D963 /* ZegoAVKitManager.m in Sources */,
-				EF6B39A81E8371FB00A6D963 /* ZegoAboutViewController.m in Sources */,
 				EF6B39A91E8371FB00A6D963 /* AppDelegate.m in Sources */,
 				EF6B39AA1E8371FB00A6D963 /* ZegoLogTableViewController.m in Sources */,
 				EF6B39AB1E8371FB00A6D963 /* ZegoAdvancedTableViewController.m in Sources */,
 				EF6B39AC1E8371FB00A6D963 /* main.m in Sources */,
 				EF6B39AD1E8371FB00A6D963 /* ZegoSetTableViewController.m in Sources */,
 				EF6B39AE1E8371FB00A6D963 /* ZegoSettings.m in Sources */,
+				16756FD21F5901EF003252AB /* ZegoShareLogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -453,13 +479,13 @@
 				EF110E151D33B691000620CD /* ZegoAudioLiveViewController.m in Sources */,
 				EF0C27701E531C49009447A7 /* ZegoVideoRootViewController.m in Sources */,
 				EF713A161D2DF76000715B6B /* ZegoAVKitManager.m in Sources */,
-				EF713A281D2DF92D00715B6B /* ZegoAboutViewController.m in Sources */,
 				EF7139CA1D2DEFD200715B6B /* AppDelegate.m in Sources */,
 				EFFBF7551D3887A8002FD7F2 /* ZegoLogTableViewController.m in Sources */,
 				EF713A291D2DF92D00715B6B /* ZegoAdvancedTableViewController.m in Sources */,
 				EF7139C71D2DEFD200715B6B /* main.m in Sources */,
 				EF713A131D2DF6F000715B6B /* ZegoSetTableViewController.m in Sources */,
 				EF713A191D2DF76A00715B6B /* ZegoSettings.m in Sources */,
+				16756FD11F5901EF003252AB /* ZegoShareLogViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +496,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				EF7139D21D2DEFD200715B6B /* Base */,
+				163FEEED1F34A8AB00FA86E6 /* zh-Hans */,
+				163FEEEE1F34A8BB00FA86E6 /* en */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -487,6 +515,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				EFFBF7711D3C74A1002FD7F2 /* Base */,
+				163FEEE11F3498D400FA86E6 /* en */,
+				163FEEE21F3498DB00FA86E6 /* zh-Hans */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -647,7 +677,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "AudioLive copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zego.AudioLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -674,7 +704,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = "AudioLive copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zego.AudioLive;
 				PRODUCT_NAME = AudioLIve;
@@ -697,7 +727,7 @@
 					"$(PROJECT_DIR)/libs",
 				);
 				INFOPLIST_FILE = "AudioLive copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zego.AudioLive;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -720,7 +750,7 @@
 					"$(PROJECT_DIR)/libs",
 				);
 				INFOPLIST_FILE = "AudioLive copy-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.zego.AudioLive;
 				PRODUCT_NAME = AudioLive;

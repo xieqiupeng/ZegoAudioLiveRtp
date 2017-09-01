@@ -8,15 +8,21 @@
 #include "ZegoAVKitManager.h"
 #import "ZegoSettings.h"
 
+NSString *kZegoDemoAppTypeKey          = @"apptype";
+NSString *kZegoDemoAppIDKey            = @"appid";
+NSString *kZegoDemoAppSignKey          = @"appsign";
+
 static ZegoAudioRoomApi *g_ZegoApi = nil;
 
-NSData *g_signKey = nil;
-uint32_t g_appID = 0;
+// Demo 默认版本为 UDP
+ZegoAppType g_appType = ZegoAppTypeUDP;
 
 BOOL g_useTestEnv = NO;
 BOOL g_useAlphaEnv = NO;
 
 BOOL g_useManual = NO;
+
+BOOL g_useInternationDomain = NO;
 
 static Byte toByte(NSString* c);
 static NSData* ConvertStringToSign(NSString* strSign);
@@ -33,19 +39,29 @@ static NSData* ConvertStringToSign(NSString* strSign);
 {
     if (g_ZegoApi == nil)
     {
+        // 测试环境开关
         [ZegoAudioRoomApi setUseTestEnv:g_useTestEnv];
         
 #ifdef DEBUG
+        // 调试信息开关
         [ZegoAudioRoomApi setVerbose:YES];
 #endif
         
+        // 设置 UserID 和 UserName
         [ZegoAudioRoomApi setUserID:[ZegoSettings sharedInstance].userID userName:[ZegoSettings sharedInstance].userName];
         
-        NSData *appSign = [self zegoAppSignFromServer];
-        g_ZegoApi = [[ZegoAudioRoomApi alloc] initWithAppID:[self appID] appSignature:appSign];
+        uint32_t appID = [self appID];
+        if (appID > 0) {    // 手动输入为空的情况下容错
+            NSData *appSign = [self zegoAppSignFromServer];
+            if (appSign) {
+                g_ZegoApi = [[ZegoAudioRoomApi alloc] initWithAppID:appID appSignature:appSign];
+            }
+        }
         
+        // 设置引擎代理
         [g_ZegoApi setAVEngineDelegate:self];
-        
+    
+        // 设置手动直播
         [g_ZegoApi setManualPublish:g_useManual];
     }
     
@@ -59,13 +75,17 @@ static NSData* ConvertStringToSign(NSString* strSign);
 
 + (void)setCustomAppID:(uint32_t)appid sign:(NSString *)sign
 {
-    g_appID = appid;
     NSData *d = ConvertStringToSign(sign);
     
     if (d.length == 32 && appid != 0)
     {
-        g_appID = appid;
-        g_signKey = [[NSData alloc] initWithData:d];
+//        g_appID = appid;
+//        g_signKey = [[NSData alloc] initWithData:d];
+        
+        // 本地持久化
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        [ud setObject:@(appid) forKey:kZegoDemoAppIDKey];
+        [ud setObject:sign forKey:kZegoDemoAppSignKey];
         
         g_ZegoApi = nil;
     }
@@ -73,13 +93,25 @@ static NSData* ConvertStringToSign(NSString* strSign);
 
 + (uint32_t)appID
 {
-    if (g_appID != 0)
-    {
-        return g_appID;
-    }
-    else
-    {
-        return 1739272706;  // * rtp
+    switch ([self appType]) {
+        case ZegoAppTypeCustom:
+        {
+            NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+            uint32_t appID = [[ud objectForKey:kZegoDemoAppIDKey] unsignedIntValue];
+            
+            if (appID != 0) {
+                return appID;
+            } else {
+                return 0;
+            }
+        }
+            break;
+        case ZegoAppTypeUDP:
+            return 1739272706;  // 国内版
+            break;
+        case ZegoAppTypeI18N:
+            return 3322882036;  // 国际版
+            break;
     }
 }
 
@@ -120,6 +152,56 @@ static NSData* ConvertStringToSign(NSString* strSign);
     return g_useManual;
 }
 
++ (void)setUsingInternationDomain:(bool)bUse
+{
+    if (g_useInternationDomain == bUse)
+        return;
+    
+    g_useInternationDomain = bUse;
+}
+
++ (bool)usingInternationDomain
+{
+    return g_useInternationDomain;
+}
+
++ (void)setAppType:(ZegoAppType)type {
+    if (g_appType == type)
+        return;
+    
+    // 本地持久化
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setInteger:type forKey:kZegoDemoAppTypeKey];
+    
+    g_appType = type;
+    
+    [self releaseApi];
+    
+    // 临时兼容 SDK 的 Bug，立即初始化 api 对象
+    if ([self api] == nil) {
+        [self api];
+    }
+}
+
++ (ZegoAppType)appType {
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSUInteger type = [ud integerForKey:kZegoDemoAppTypeKey];
+    g_appType = (ZegoAppType)type;
+    return (ZegoAppType)type;
+}
+
++ (NSString *)customAppSign {
+    ZegoAppType type = [self appType];
+    
+    if (type == ZegoAppTypeCustom) {
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *appSign = [ud objectForKey:kZegoDemoAppSignKey];
+        return appSign;
+    } else {
+        return nil;
+    }
+}
+
 #pragma mark - private
 
 + (NSData *)zegoAppSignFromServer
@@ -127,24 +209,36 @@ static NSData* ConvertStringToSign(NSString* strSign);
     //!! Demo 把signKey先写到代码中
     //!! 规范用法：这个signKey需要从server下发到App，避免在App中存储，防止盗用
     
-    if ([self appID] == 1)
-    {
-        Byte signkey[] = {0x91, 0x93, 0xcc, 0x66, 0x2a, 0x1c, 0x0e, 0xc1, 0x35, 0xec, 0x71, 0xfb, 0x07, 0x19, 0x4b, 0x38, 0x41, 0xd4, 0xad, 0x83, 0x78, 0xf2, 0x59, 0x90, 0xe0, 0xa4, 0x0c, 0x7f, 0xf4, 0x28, 0x41, 0xf7};
-        return [NSData dataWithBytes:signkey length:32];
-    }
-    else if ([self appID] == 1739272706)
+    ZegoAppType type = [self appType];
+    
+    
+//    if ([self appID] == 1)
+//    {
+//        Byte signkey[] = {0x91, 0x93, 0xcc, 0x66, 0x2a, 0x1c, 0x0e, 0xc1, 0x35, 0xec, 0x71, 0xfb, 0x07, 0x19, 0x4b, 0x38, 0x41, 0xd4, 0xad, 0x83, 0x78, 0xf2, 0x59, 0x90, 0xe0, 0xa4, 0x0c, 0x7f, 0xf4, 0x28, 0x41, 0xf7};
+//        return [NSData dataWithBytes:signkey length:32];
+//    }
+//    else
+    
+    if (type == ZegoAppTypeUDP)
     {
         Byte signkey[] = {0x1e,0xc3,0xf8,0x5c,0xb2,0xf2,0x13,0x70,0x26,0x4e,0xb3,0x71,0xc8,0xc6,0x5c,0xa3,0x7f,0xa3,0x3b,0x9d,0xef,0xef,0x2a,0x85,0xe0,0xc8,0x99,0xae,0x82,0xc0,0xf6,0xf8};
         return [NSData dataWithBytes:signkey length:32];
     }
-    else if ([self appID] == 3322882036)
+    else if (type == ZegoAppTypeI18N)
     {
         Byte signkey[] = {0x5d,0xe6,0x83,0xac,0xa4,0xe5,0xad,0x43,0xe5,0xea,0xe3,0x70,0x6b,0xe0,0x77,0xa4,0x18,0x79,0x38,0x31,0x2e,0xcc,0x17,0x19,0x32,0xd2,0xfe,0x22,0x5b,0x6b,0x2b,0x2f};
         return [NSData dataWithBytes:signkey length:32];
     }
     else
     {
-        return g_signKey;
+        // 自定义模式下从本地持久化文件中加载
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSString *appSign = [ud objectForKey:kZegoDemoAppSignKey];
+        if (appSign) {
+            return ConvertStringToSign(appSign);
+        } else {
+            return nil;
+        }
     }
 }
 

@@ -34,7 +34,9 @@ NSString *kZegoDemoUserNameKey          = @"username";
     self = [super init];
     if (self)
     {
-        
+        _appTypeList = @[NSLocalizedString(@"国内版", nil),
+                         NSLocalizedString(@"国际版", nil),
+                         NSLocalizedString(@"自定义", nil)];
     }
     
     return self;
@@ -56,7 +58,6 @@ NSString *kZegoDemoUserNameKey          = @"username";
     return _userID;
 }
 
-
 - (void)setUserID:(NSString *)userID {
     if ([_userID isEqualToString:userID]) {
         return;
@@ -66,9 +67,10 @@ NSString *kZegoDemoUserNameKey          = @"username";
         _userID = userID;
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         [ud setObject:_userID forKey:kZegoDemoUserIDKey];
+        
+        [ZegoAudioLive releaseApi];
     }
 }
-
 
 - (void)cleanLocalUser
 {
@@ -110,6 +112,8 @@ NSString *kZegoDemoUserNameKey          = @"username";
         _userName = userName;
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         [ud setObject:_userName forKey:kZegoDemoUserNameKey];
+        
+        [ZegoAudioLive releaseApi];
     }
 }
 

@@ -1,6 +1,6 @@
 //
 //  ZegoVideoRootViewController.m
-//  InstantTalk
+//  AudioLive
 //
 //  Created by Strong on 2017/2/14.
 //  Copyright © 2017年 ZEGO. All rights reserved.
@@ -8,6 +8,7 @@
 
 #import "ZegoVideoRootViewController.h"
 #import "ZegoAudioLiveViewController.h"
+#import "ZegoSettings.h"
 
 @interface ZegoVideoRootViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *videoTalkButton;
@@ -26,6 +27,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textFieldTextDidChange) name:UITextFieldTextDidChangeNotification object:self.sessionIdText];
     
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    NSString *title = [NSString stringWithFormat:@"AudioLive(%@)", [ZegoSettings sharedInstance].appTypeList[[ZegoAudioLive appType]]];
+    self.navigationItem.title = NSLocalizedString(title, nil);
 }
 
 - (void)textFieldTextDidChange

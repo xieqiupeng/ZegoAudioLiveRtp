@@ -6,31 +6,39 @@
 	<dict>
 		<key>Headers/ZegoAudioCapture.h</key>
 		<data>
-		q/tHrzhAZgTNK0HFKh10aPAHv3g=
+		aBUSHHeHsOrTRuWhAMU81hrcVbA=
 		</data>
 		<key>Headers/ZegoAudioRoom.h</key>
 		<data>
-		CV2Y3v5xu7tq6Bq3nr4yEWtMR84=
+		fCS0SuOaNsuEY2P1RJsEdoSW1M4=
 		</data>
 		<key>Headers/ZegoAudioRoomApi-AudioIO.h</key>
 		<data>
-		ASZ3OQ8YV9bw9KbGCuMHuUpjygc=
+		ag5C3X71VHQvGPYRr2jBF1ZZPOM=
+		</data>
+		<key>Headers/ZegoAudioRoomApi-IM.h</key>
+		<data>
+		eEbTMbV1HR/+HuYDimardU2NvEU=
 		</data>
 		<key>Headers/ZegoAudioRoomApi-Player.h</key>
 		<data>
-		XTpV1oMXxbK1uHZyKL9GFLgqU0U=
+		l3J00c6vixuMoKmtLv0DSHhDrYA=
 		</data>
 		<key>Headers/ZegoAudioRoomApi-Publisher.h</key>
 		<data>
-		JwW/HwFPFBfZk6fTb+nSEYx9NHM=
+		SOZ6gk0t95sRxGK+teTjxuRJPUY=
 		</data>
 		<key>Headers/ZegoAudioRoomApi.h</key>
 		<data>
-		m1jgFgW+qQypAelChpumsvJIA+8=
+		091VOP5LorBfCDWIMqdKLTrT4SQ=
+		</data>
+		<key>Headers/ZegoAudioRoomApiDefines-IM.h</key>
+		<data>
+		M/krlRSejYrCyYaiOqCpCTETMsU=
 		</data>
 		<key>Headers/ZegoAudioRoomApiDefines.h</key>
 		<data>
-		Bl3s0ppEJYv7+67RFYl1kRuim/g=
+		I9sSJPAYJep3Mdv1AL/KlXcFK7E=
 		</data>
 		<key>Headers/audio_in_output.h</key>
 		<data>
@@ -38,7 +46,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+GqK8ontEz3+vSsqaGQztA7089Y=
+		vaPJ52DuTXjc0xTMZszmSH5jKOs=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -51,77 +59,99 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			q/tHrzhAZgTNK0HFKh10aPAHv3g=
+			aBUSHHeHsOrTRuWhAMU81hrcVbA=
 			</data>
 			<key>hash2</key>
 			<data>
-			P8mLPeRhEyVOBY6AG+7+ns3X6k1PXNMMOjkIBPJ/Lnw=
+			SIa50+AtEDxkt5BYTtecmDmSNcZbgpUSTxjZwMaeDbY=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoom.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CV2Y3v5xu7tq6Bq3nr4yEWtMR84=
+			fCS0SuOaNsuEY2P1RJsEdoSW1M4=
 			</data>
 			<key>hash2</key>
 			<data>
-			LupLiM7D1d6/sttdqyPFr3kamYcXlDxbpgZzPH1ICWI=
+			ljVP0Tspu7+Lslgtog7OEfy8IalRRx1FdJjfCFbsHx8=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi-AudioIO.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			ASZ3OQ8YV9bw9KbGCuMHuUpjygc=
+			ag5C3X71VHQvGPYRr2jBF1ZZPOM=
 			</data>
 			<key>hash2</key>
 			<data>
-			8UwFMRTBrDx+BJ65jen9CVlJRpaBRaipNX9eH3kLcIs=
+			iEepG1J2d8Ij2v8j+cIEpfkxB+zDr6FFo9GCTvY3s+U=
+			</data>
+		</dict>
+		<key>Headers/ZegoAudioRoomApi-IM.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			eEbTMbV1HR/+HuYDimardU2NvEU=
+			</data>
+			<key>hash2</key>
+			<data>
+			ffTk98Cl31kiA0cjEAf1s6fCw9gQqNx3XLnE0C4K8vw=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi-Player.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			XTpV1oMXxbK1uHZyKL9GFLgqU0U=
+			l3J00c6vixuMoKmtLv0DSHhDrYA=
 			</data>
 			<key>hash2</key>
 			<data>
-			fZfIhu0jHlevD/n2lClYzT2Ky+PQn4NF+DOZxEb8GFw=
+			MqsmptV8HRnSjBtXYq77D1zhH+WeWauC6+HlouOyytI=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi-Publisher.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			JwW/HwFPFBfZk6fTb+nSEYx9NHM=
+			SOZ6gk0t95sRxGK+teTjxuRJPUY=
 			</data>
 			<key>hash2</key>
 			<data>
-			BL/Laa5e3FFxnIfO+Qjt3xhmQK9+ZPiujaknGGL7Nwk=
+			EoGFtY77VYyHP87qki3CdYI/gbJ0QYYU99LkfwYyQzU=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			m1jgFgW+qQypAelChpumsvJIA+8=
+			091VOP5LorBfCDWIMqdKLTrT4SQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			Q//XelpkIUlJjlav0YjvN7yKJcOb0u4C7/FnZGCZzSM=
+			BfXGR0aCZg6GTy0qLHsq35mFChLsucHR0TI+C45EFbI=
+			</data>
+		</dict>
+		<key>Headers/ZegoAudioRoomApiDefines-IM.h</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			M/krlRSejYrCyYaiOqCpCTETMsU=
+			</data>
+			<key>hash2</key>
+			<data>
+			Xo9t9h1+cLmZfKW2n4FklY+LPYXWUAsudsvo8Q3IwT4=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApiDefines.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Bl3s0ppEJYv7+67RFYl1kRuim/g=
+			I9sSJPAYJep3Mdv1AL/KlXcFK7E=
 			</data>
 			<key>hash2</key>
 			<data>
-			iHD7y342mb+aLTDuWlMqQH6waDclKrzrUm8hPhEIn/k=
+			PefmrcFwxSv7mNolSABOhcEWMjuBANqBr8Wl2tlaiiI=
 			</data>
 		</dict>
 		<key>Headers/audio_in_output.h</key>

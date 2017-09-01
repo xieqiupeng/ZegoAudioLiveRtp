@@ -11,7 +11,7 @@
 #import "ZegoLogTableViewController.h"
 #import <AVFoundation/AVFoundation.h>
 
-@interface ZegoAudioLiveViewController () <ZegoAudioLivePublisherDelegate, ZegoAudioLivePlayerDelegate, ZegoAudioRoomDelegate>
+@interface ZegoAudioLiveViewController () <ZegoAudioLivePublisherDelegate, ZegoAudioLivePlayerDelegate, ZegoAudioRoomDelegate, ZegoAudioIMDelegate>
 //日志记录
 @property (nonatomic, strong) NSMutableArray *logArray;
 
@@ -24,13 +24,21 @@
 
 @property (nonatomic, weak) IBOutlet UIButton *publishButton;
 
+@property (nonatomic, weak) IBOutlet UIButton *messageButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *micButton;
+
 @property (nonatomic, strong) UIColor *defaultButtonColor;
 @property (nonatomic, assign) BOOL enableSpeaker;
 @property (nonatomic, assign) BOOL isPublished;
 
+@property (nonatomic, assign) BOOL enableMic;
+
 @end
 
 @implementation ZegoAudioLiveViewController
+
+#pragma mark - Life cycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -53,6 +61,8 @@
     
     self.publishButton.enabled = NO;
     
+    self.messageButton.enabled = NO;
+    
     [[ZegoAudioLive api] setUserStateUpdate:YES];
     
     [self setupLiveKit];
@@ -61,11 +71,14 @@
     self.enableSpeaker = YES;
     self.defaultButtonColor = [self.mutedButton titleColorForState:UIControlStateNormal];
     
+    self.enableMic = YES;
+    self.micButton.enabled = NO;
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     
-    [self addLogString:[NSString stringWithFormat:@"开始加入session: %@", self.sessionID]];
+    [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"开始加入session: %@", nil), self.sessionID]];
     
-    self.tipsLabel.text = [NSString stringWithFormat:@"开始登录房间: %@", self.sessionID];
+    self.tipsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"开始登录房间: %@", nil), self.sessionID];
     
     // 监听电话事件
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(audioSessionWasInterrupted:) name:AVAudioSessionInterruptionNotification object:nil];
@@ -74,98 +87,20 @@
     [[ZegoAudioLive api] loginRoom:self.sessionID completionBlock:^(int errorCode) {
         if (errorCode != 0)
         {
-            [self addLogString:[NSString stringWithFormat:@"加入session失败: %d", errorCode]];
-            self.tipsLabel.text = [NSString stringWithFormat:@"登录房间失败: %d", errorCode];
+            [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"加入session失败: %d", nil), errorCode]];
+            self.tipsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"登录房间失败: %d", nil), errorCode];
         }
         else
         {
             self.mutedButton.enabled = YES;
             self.publishButton.enabled = YES;
-            [self addLogString:[NSString stringWithFormat:@"加入session成功"]];
-            self.tipsLabel.text = [NSString stringWithFormat:@"登录房间成功"];
+            self.messageButton.enabled = YES;
+            self.micButton.enabled = YES;
+            
+            [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"加入session成功", nil)]];
+            self.tipsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"登录房间成功", nil)];
         }
     }];
-}
-
-- (void)setupLiveKit
-{
-    [[ZegoAudioLive api] setAudioRoomDelegate:self];
-    [[ZegoAudioLive api] setAudioPlayerDelegate:self];
-    [[ZegoAudioLive api] setAudioPublisherDelegate:self];
-}
-
-- (IBAction)onPublishButton:(id)sender
-{
-    if (self.isPublished)
-    {
-        //停止直播
-        [[ZegoAudioLive api] stopPublish];
-        [self.publishButton setTitle:@"开始直播" forState:UIControlStateNormal];
-        self.isPublished = NO;
-        
-        //删除流
-        for (ZegoAudioStream *audioStream in self.streamList)
-        {
-            if ([audioStream.userID isEqualToString:[ZegoSettings sharedInstance].userID])
-            {
-                [self.streamList removeObject:audioStream];
-                break;
-            }
-        }
-        
-        [self.tableView reloadData];
-    }
-    else
-    {
-        BOOL result = [[ZegoAudioLive api] startPublish];
-        if (result == NO)
-        {
-            self.tipsLabel.text = @"开播失败，直播流超过上限";
-        }
-        else
-        {
-            [self.publishButton setTitle:@"停止直播" forState:UIControlStateNormal];
-            self.publishButton.enabled = NO;
-        }
-    }
-}
-
-- (void)openSetting
-{
-    NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
-    if ([[UIApplication sharedApplication] canOpenURL:settingURL])
-        [[UIApplication sharedApplication] openURL:settingURL];
-}
-
-- (void)showAuthorizationAlert:(NSString *)message title:(NSString *)title
-{
-    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-    }];
-    UIAlertAction *settingAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"设置权限", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [self openSetting];
-    }];
-    
-    [alertController addAction:settingAction];
-    [alertController addAction:cancelAction];
-    
-    alertController.preferredAction = settingAction;
-    
-    [self presentViewController:alertController animated:YES completion:nil];
-    
-}
-
-#pragma mark audiosessionInterrupted notification
-- (void)audioSessionWasInterrupted:(NSNotification *)notification
-{
-    if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
-    {
-        
-    }
-    else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
-    {
-        
-    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -185,18 +120,42 @@
     [self setIdelTimerDisable:NO];
 }
 
-- (BOOL)checkAudioAuthorization
+#pragma mark - Event response
+
+- (IBAction)onPublishButton:(id)sender
 {
-    AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
-    if (audioAuthStatus == AVAuthorizationStatusDenied || audioAuthStatus == AVAuthorizationStatusRestricted)
-        return NO;
-    if (audioAuthStatus == AVAuthorizationStatusNotDetermined)
+    if (self.isPublished)
     {
-        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
-        }];
+        //停止直播
+        [[ZegoAudioLive api] stopPublish];
+        [self.publishButton setTitle:NSLocalizedString(@"开始直播", nil) forState:UIControlStateNormal];
+        self.isPublished = NO;
+        
+        //删除流
+        for (ZegoAudioStream *audioStream in self.streamList)
+        {
+            if ([audioStream.userID isEqualToString:[ZegoSettings sharedInstance].userID])
+            {
+                [self.streamList removeObject:audioStream];
+                break;
+            }
+        }
+        
+        [self.tableView reloadData];
     }
-    
-    return YES;
+    else
+    {
+        BOOL result = [[ZegoAudioLive api] startPublish];
+        if (result == NO)
+        {
+            self.tipsLabel.text = NSLocalizedString(@"开播失败，直播流超过上限", nil);
+        }
+        else
+        {
+            [self.publishButton setTitle:NSLocalizedString(@"停止直播", nil) forState:UIControlStateNormal];
+            self.publishButton.enabled = NO;
+        }
+    }
 }
 
 - (IBAction)closeView:(id)sender
@@ -223,12 +182,132 @@
     [[ZegoAudioLive api] enableSpeaker:self.enableSpeaker];
 }
 
+- (IBAction)onMessageButton:(id)sender
+{
+    NSString *content = [NSString stringWithFormat:@"%@ hand shake", [self getCurrentTime]];
+    [[ZegoAudioLive api] sendRoomMessage:content type:ZEGO_TEXT category:ZEGO_CHAT priority:ZEGO_DEFAULT completion:^(int errorCode, NSString *roomId, unsigned long long messageId) {
+        if (errorCode == 0)
+            [self addLogString:@"message send success"];
+    }];
+}
+
+- (IBAction)onMicButton:(id)sender {
+    if (self.enableMic) {
+        self.enableMic = NO;
+        [self.micButton setTitle:NSLocalizedString(@"打开麦克风", nil) forState:UIControlStateNormal];
+        [self.micButton setTitleColor:[UIColor redColor] forState:UIControlStateNormal];
+    } else {
+        self.enableMic = YES;
+        [self.micButton setTitle:NSLocalizedString(@"关闭麦克风", nil) forState:UIControlStateNormal];
+        [self.micButton setTitleColor:self.defaultButtonColor forState:UIControlStateNormal];
+    }
+    
+    [[ZegoAudioLive api] enableMic:self.enableMic];
+}
+
+#pragma mark -- Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+    if ([segue.identifier isEqualToString:@"logSegueIdentifier"])
+    {
+        UINavigationController *navigationController = [segue destinationViewController];
+        ZegoLogTableViewController *logViewController = (ZegoLogTableViewController *)[navigationController.viewControllers firstObject];
+        logViewController.logArray = self.logArray;
+    }
+}
+
+#pragma mark - Private method
+
+- (void)setupLiveKit
+{
+    [[ZegoAudioLive api] setAudioRoomDelegate:self];
+    [[ZegoAudioLive api] setAudioPlayerDelegate:self];
+    [[ZegoAudioLive api] setAudioPublisherDelegate:self];
+    [[ZegoAudioLive api] setAudioIMDelegate:self];
+}
+
+- (void)openSetting
+{
+    NSURL *settingURL = [NSURL URLWithString:UIApplicationOpenSettingsURLString];
+    if ([[UIApplication sharedApplication] canOpenURL:settingURL])
+        [[UIApplication sharedApplication] openURL:settingURL];
+}
+
+- (void)showAuthorizationAlert:(NSString *)message title:(NSString *)title
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"取消", nil) style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+    }];
+    UIAlertAction *settingAction = [UIAlertAction actionWithTitle:NSLocalizedString(@"设置权限", nil) style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        [self openSetting];
+    }];
+    
+    [alertController addAction:settingAction];
+    [alertController addAction:cancelAction];
+    
+    alertController.preferredAction = settingAction;
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+}
+
+#pragma mark -- Log
+
+- (NSString *)getCurrentTime
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"HH-mm-ss:SSS";
+    return [formatter stringFromDate:[NSDate date]];
+}
+
+- (void)addLogString:(NSString *)logString
+{
+    if (logString.length != 0)
+    {
+        NSString *totalString = [NSString stringWithFormat:@"%@: %@", [self getCurrentTime], logString];
+        [self.logArray insertObject:totalString atIndex:0];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"logUpdateNotification" object:self userInfo:nil];
+    }
+}
+
+#pragma mark - AudiosessionInterrupted notification
+
+- (void)audioSessionWasInterrupted:(NSNotification *)notification
+{
+    if (AVAudioSessionInterruptionTypeBegan == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        
+    }
+    else if (AVAudioSessionInterruptionTypeEnded == [notification.userInfo[AVAudioSessionInterruptionTypeKey] intValue])
+    {
+        
+    }
+}
+
+- (BOOL)checkAudioAuthorization
+{
+    AVAuthorizationStatus audioAuthStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeAudio];
+    if (audioAuthStatus == AVAuthorizationStatusDenied || audioAuthStatus == AVAuthorizationStatusRestricted)
+        return NO;
+    if (audioAuthStatus == AVAuthorizationStatusNotDetermined)
+    {
+        [AVCaptureDevice requestAccessForMediaType:AVMediaTypeAudio completionHandler:^(BOOL granted) {
+        }];
+    }
+    
+    return YES;
+}
+
 - (void)setIdelTimerDisable:(BOOL)disable
 {
     [[UIApplication sharedApplication] setIdleTimerDisabled:disable];
 }
 
-#pragma mark UITableViewDataSouce & delegate
+#pragma mark - UITableViewDataSouce & delegate
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -247,14 +326,21 @@
         return cell;
     
     ZegoAudioStream *audioStream = [self.streamList objectAtIndex:indexPath.row];
-    if ([audioStream.userID isEqualToString:[ZegoSettings sharedInstance].userID])
-        cell.textLabel.textColor = [UIColor redColor];
-    else
-        cell.textLabel.textColor = [UIColor blackColor];
     
-    NSAttributedString *titleAttributeString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:@"Stream %2d: ", indexPath.row + 1] attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
+    cell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"用户: %@", nil), audioStream.userName] ;
+    
+    if ([audioStream.userID isEqualToString:[ZegoSettings sharedInstance].userID]) {
+        cell.textLabel.textColor = [UIColor redColor];
+        cell.detailTextLabel.text = [cell.detailTextLabel.text stringByAppendingString:NSLocalizedString(@" (自己)", nil)];
+    } else {
+        cell.textLabel.textColor = [UIColor blackColor];
+    }
+    
+    NSAttributedString *titleAttributeString = [[NSAttributedString alloc] initWithString:[NSString stringWithFormat:NSLocalizedString(@"流-%ld: ", nil), indexPath.row + 1]
+                                                                               attributes:@{NSForegroundColorAttributeName: [UIColor blackColor]}];
     
     NSMutableAttributedString *contentAttributeString = [[NSMutableAttributedString alloc] initWithString:audioStream.streamID];
+    
     if ([audioStream.userID isEqualToString:[ZegoSettings sharedInstance].userID])
     {
         [contentAttributeString setAttributes:@{NSForegroundColorAttributeName: [UIColor redColor]} range:NSMakeRange(0, contentAttributeString.length)];
@@ -272,12 +358,13 @@
 }
 
 #pragma mark - ZegoAudioLivePublisherDelegate
+
 - (void)onPublishStateUpdate:(int)stateCode streamID:(NSString *)streamID streamInfo:(NSDictionary *)info
 {
     if (stateCode == 0)
     {
-        [self addLogString:[NSString stringWithFormat:@"推流成功: %@", streamID]];
-        self.tipsLabel.text = @"推流成功";
+        [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"推流成功: %@", nil), streamID]];
+        self.tipsLabel.text = NSLocalizedString(@"推流成功", nil);
         
         if ([ZegoAudioLive manualPublish])
         {
@@ -300,33 +387,35 @@
         {
             self.publishButton.enabled = YES;
             self.isPublished = NO;
-            [self.publishButton setTitle:@"开始直播" forState:UIControlStateNormal];
+            [self.publishButton setTitle:NSLocalizedString(@"开始直播", nil) forState:UIControlStateNormal];
         }
         
-        [self addLogString:[NSString stringWithFormat:@"推流失败: %@, error:%d", streamID, stateCode]];
-        self.tipsLabel.text = [NSString stringWithFormat:@"推流失败:%d", stateCode];
+        [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"推流失败: %@, error:%d", nil), streamID, stateCode]];
+        self.tipsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"推流失败:%d", nil), stateCode];
     }
 }
 
 #pragma mark - ZegoAudioLivePlayerDelegate
+
 - (void)onPlayStateUpdate:(int)stateCode stream:(ZegoAudioStream *)stream
 {
     if (stateCode == 0)
     {
-        [self addLogString:[NSString stringWithFormat:@"拉流成功: %@", stream.streamID]];
-        self.tipsLabel.text = @"拉流成功";
+        [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"拉流成功: %@", nil), stream.streamID]];
+        self.tipsLabel.text = NSLocalizedString(@"拉流成功", nil);
     }
     else
     {
-        [self addLogString:[NSString stringWithFormat:@"拉流失败: %@, error: %d", stream.streamID, stateCode]];
-        self.tipsLabel.text = [NSString stringWithFormat:@"拉流失败: %d", stateCode];
+        [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"拉流失败: %@, error: %d", nil), stream.streamID, stateCode]];
+        self.tipsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"拉流失败: %d", nil), stateCode];
     }
 }
 
 #pragma mark - ZegoAudioRoomDelegate
+
 - (void)onDisconnect:(int)errorCode roomID:(NSString *)roomID
 {
-    [self addLogString:[NSString stringWithFormat:@"连接房间失败 %d", errorCode]];
+    [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"连接房间失败 %d", nil), errorCode]];
 }
 
 - (void)onStreamUpdated:(ZegoAudioStreamType)type stream:(ZegoAudioStream *)stream
@@ -343,8 +432,8 @@
             }
         }
         
-        [self addLogString:[NSString stringWithFormat:@"新增流:%@", stream.streamID]];
-        self.tipsLabel.text = [NSString stringWithFormat: @"用户%@进入,开始拉流", stream.userID];
+        [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"新增流:%@", nil), stream.streamID]];
+        self.tipsLabel.text = [NSString stringWithFormat: NSLocalizedString(@"用户%@进入,开始拉流", nil), stream.userID];
         if (alreadyHave == NO)
             [self.streamList addObject:stream];
     }
@@ -354,8 +443,8 @@
         {
             if ([playStream.streamID isEqualToString:stream.streamID])
             {
-                [self addLogString:[NSString stringWithFormat:@"删除流:%@", stream.streamID]];
-                self.tipsLabel.text = [NSString stringWithFormat: @"用户%@退出,停止拉流", stream.userID];;
+                [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"删除流:%@", nil), stream.streamID]];
+                self.tipsLabel.text = [NSString stringWithFormat: NSLocalizedString(@"用户%@退出,停止拉流", nil), stream.userID];
                 
                 [self.streamList removeObject:playStream];
                 break;
@@ -369,56 +458,25 @@
 - (void)onUserUpdate:(NSArray<ZegoUserState *> *)userList updateType:(ZegoUserUpdateType)type
 {
     if (type == ZEGO_UPDATE_TOTAL)
-        [self addLogString:@"用户列表已全量更新"];
+        [self addLogString:NSLocalizedString(@"用户列表已全量更新", nil)];
     else if (type == ZEGO_UPDATE_INCREASE)
-        [self addLogString:@"用户列表增量更新"];
+        [self addLogString:NSLocalizedString(@"用户列表增量更新", nil)];
     
     for (ZegoUserState *user in userList)
     {
         if (user.updateFlag == ZEGO_USER_ADD)
-            [self addLogString:[NSString stringWithFormat:@"%@ 用户进入房间", user.userID]];
+            [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"%@ 用户进入房间", nil), user.userID]];
         else if (user.updateFlag == ZEGO_USER_DELETE)
-            [self addLogString:[NSString stringWithFormat:@"%@ 用户离开房间", user.userID]];
+            [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"%@ 用户离开房间", nil), user.userID]];
     }
 }
 
-#pragma mark - Log
-- (NSString *)getCurrentTime
+- (void)onRecvAudioRoomMessage:(NSString *)roomId messageList:(NSArray<ZegoRoomMessage *> *)messageList
 {
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"HH-mm-ss:SSS";
-    return [formatter stringFromDate:[NSDate date]];
-}
-
-- (void)addLogString:(NSString *)logString
-{
-    if (logString.length != 0)
+    for (ZegoRoomMessage *message in messageList)
     {
-        NSString *totalString = [NSString stringWithFormat:@"%@: %@", [self getCurrentTime], logString];
-        [self.logArray insertObject:totalString atIndex:0];
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"logUpdateNotification" object:self userInfo:nil];
+        [self addLogString:[NSString stringWithFormat:@"%@ said: %@", message.fromUserId, message.content]];
     }
-}
-
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-    if ([segue.identifier isEqualToString:@"logSegueIdentifier"])
-    {
-        UINavigationController *navigationController = [segue destinationViewController];
-        ZegoLogTableViewController *logViewController = (ZegoLogTableViewController *)[navigationController.viewControllers firstObject];
-        logViewController.logArray = self.logArray;
-    }
-}
-
-#pragma mark - request video
-- (void)requestOtherVideo
-{
-    [self closeView:nil];
 }
 
 @end

@@ -9,6 +9,12 @@
 
 #import <ZegoAudioRoom/ZegoAudioRoom.h>
 
+typedef enum : NSUInteger {
+    ZegoAppTypeUDP      = 0,    // 国内版
+    ZegoAppTypeI18N     = 1,    // 国际版
+    ZegoAppTypeCustom   = 2,    // 用户自定义
+} ZegoAppType;
+
 @interface ZegoAudioLive : NSObject
 
 + (ZegoAudioRoomApi *)api;
@@ -24,6 +30,16 @@
 
 + (bool)manualPublish;
 + (void)setUsingManualPublish:(bool)manual;
+
++ (void)setUsingInternationDomain:(bool)bUse;
++ (bool)usingInternationDomain;
+
++ (void)setAppType:(ZegoAppType)type;
++ (ZegoAppType)appType;
+
++ (NSString *)customAppSign;
+
++ (NSData *)zegoAppSignFromServer;
 
 @end
 
