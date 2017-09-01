@@ -16,7 +16,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:text="Version: "/>
+            android:text="@string/zg_text_sdk_version"/>
         <TextView
             android:id="@+id/tv_version"
             android:layout_width="wrap_content"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:text="Version2: "/>
+            android:text="@string/zg_text_ve_version"/>
         <TextView
             android:id="@+id/tv_version2"
             android:layout_width="wrap_content"
@@ -47,11 +47,49 @@
             android:layout_height="wrap_content"
             android:paddingTop="4dp"
             android:paddingBottom="4dp"
-            android:text="UserId: "/>
+            android:text="@string/zg_text_user_id"/>
         <TextView
             android:id="@+id/tv_user_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:text="@string/zg_text_user_name"/>
+        <EditText
+            android:id="@+id/tv_user_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:maxLength="255"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="@string/zg_text_app_flavor"
+            android:textColor="#000000"
+            android:textSize="14.7sp"/>
+
+        <Spinner
+            android:id="@+id/sp_app_flavor"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:layout_marginLeft="20dp"
+            android:entries="@array/zg_arr_app_flavors" />
     </LinearLayout>
 
     <LinearLayout
@@ -71,6 +109,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_app_key"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">

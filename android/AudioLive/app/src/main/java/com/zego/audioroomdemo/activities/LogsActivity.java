@@ -51,6 +51,8 @@ public class LogsActivity extends AppCompatActivity {
         logsContainer.setAdapter(logsAdapter);
         logsContainer.setEmptyView(emptyView);
 
+        setTitle(getIntent().getStringExtra("title"));
+
         ((AudioApplication)getApplication()).registerLogUpdateObserver(logUpdateObserver);
     }
 

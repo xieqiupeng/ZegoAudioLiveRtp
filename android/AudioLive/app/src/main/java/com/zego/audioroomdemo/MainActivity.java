@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     @Bind(R.id.toolbar)
     public android.support.v7.widget.Toolbar toolBar;
 
-
-
     private long currentAppId = -1;
     private String currentStrSignKey = null;
 
@@ -61,10 +59,8 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent settingsIntent = new Intent(MainActivity.this, SettingsActivity.class);
                 settingsIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                if (currentAppId > 0 && !TextUtils.isEmpty(currentStrSignKey)) {
-                    settingsIntent.putExtra("appId", currentAppId);
-                    settingsIntent.putExtra("rawKey", currentStrSignKey);
-                }
+                settingsIntent.putExtra("appId", currentAppId);
+                settingsIntent.putExtra("rawKey", currentStrSignKey);
                 startActivityForResult(settingsIntent, 101);
             }
         });
@@ -76,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
             btnLoginOrLogout.setText(R.string.zg_start_communicate);
         }
 
-        currentAppId = BuildConfig.APP_ID;
+        currentAppId = PrefUtils.getAppId();
+        setTitle(AppSignKeyUtils.getAppTitle(currentAppId, this));
     }
 
     @Override
@@ -105,12 +102,16 @@ public class MainActivity extends AppCompatActivity {
             ZegoAudioRoom zegoAudioRoom = ((AudioApplication)getApplication()).getAudioRoomClient();
             if (resultCode == 1) {
                 ZGLog.d("on SettingsActivity Result, reInit SDK");
+                long appId;
                 if (data == null) {
-                    reInitZegoSDK(BuildConfig.APP_ID, AppSignKeyUtils.requestSignKey(BuildConfig.APP_ID));
+                    appId = PrefUtils.getAppId();
+                    reInitZegoSDK(appId, PrefUtils.getAppKey());
                 } else {
                     currentStrSignKey = data.getStringExtra("rawKey");
-                    reInitZegoSDK(data.getLongExtra("appId", 1), data.getByteArrayExtra("signKey"));
+                    appId = data.getLongExtra("appId", PrefUtils.getAppId());
+                    reInitZegoSDK(appId, data.getByteArrayExtra("signKey"));
                 }
+                setTitle(AppSignKeyUtils.getAppTitle(appId, MainActivity.this));
             } else {
                 ZGLog.d("on SettingsActivity Result: %d", resultCode);
                 zegoAudioRoom.setManualPublish(PrefUtils.isManualPublish());
@@ -148,12 +149,15 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void reInitZegoSDK(final long appKey, final byte[] signKey) {
-        currentAppId = appKey;
+    private void reInitZegoSDK(final long appId, final byte[] signKey) {
+        currentAppId = appId;
 
         new Thread(new Runnable() {
             @Override
             public void run() {
+                PrefUtils.setAppId(appId);
+                PrefUtils.setAppKey(signKey);
+
                 ZegoAudioRoom zegoAudioRoom = ((AudioApplication)getApplication()).getAudioRoomClient();
                 ZegoAudioRoom.setUseTestEnv(false);
 //                zegoAudioRoom.enableAudioPrep(false);
@@ -161,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
                 zegoAudioRoom.unInit();
 
                 String userId = PrefUtils.getUserId();
-                String userName =  "ZG-A-" + userId;
+                String userName =  PrefUtils.getUserName();
                 ZegoAudioRoom.setUser(userId, userName);
                 ZegoAudioRoom.setUseTestEnv(AudioApplication.sApplication.isUseTestEnv());
 //                ZegoAudioRoom.enableAudioPrep(PrefUtils.isEnableAudioPrepare());
@@ -172,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
                 config.samples = 1;
                 ZegoAudioRoom.enableAudioPrep2(PrefUtils.isEnableAudioPrepare(), config);
                 zegoAudioRoom.setManualPublish(PrefUtils.isManualPublish());
-                zegoAudioRoom.initWithAppId(appKey, signKey, MainActivity.this);
+                zegoAudioRoom.initWithAppId(appId, signKey, MainActivity.this);
             }
         }).start();
     }
@@ -180,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
     private void startSessionActivity() {
         Intent startIntent = new Intent(MainActivity.this, SessionActivity.class);
         startIntent.putExtra("roomId", ctrlRoomName.getText().toString().trim());
+        startIntent.putExtra("title", AppSignKeyUtils.getAppTitle(currentAppId, MainActivity.this));
         startActivity(startIntent);
     }
 

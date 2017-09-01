@@ -1,29 +1,60 @@
 <resources>
     <string name="zg_app_name">AudioLive</string>
-    <string name="zg_login_room">登录房间</string>
-    <string name="zg_logout_room">关闭</string>
-    <string name="zg_start_communicate">开始音频通话</string>
-    <string name="zg_stop_communicate">停止音频通话</string>
-    <string name="zg_tip_input_room_name">输入房间ID</string>
-    <string name="zg_tip_no_stream">没有流数据</string>
+    <string name="zg_app_title">AudioLive(%1$s)</string>
+    <string name="zg_login_room">Login Room</string>
+    <string name="zg_logout_room">Close</string>
+    <string name="zg_start_communicate">Start Voice</string>
+    <string name="zg_stop_communicate">Stop Voice</string>
 
-    <string name="zg_tip_no_events">没有数据</string>
+    <string name="zg_tip_input_room_name">Input RoomID</string>
+    <string name="zg_tip_no_stream">No stream data</string>
+    <string name="zg_tip_no_events">no data</string>
+    <string name="zg_tip_send_message_failed">Send message failed</string>
+    <string name="zg_tip_login_success">Login Success</string>
+    <string name="zg_tip_login_failed">Login Failed</string>
+    <string name="zg_tip_login_failed_state">Login failed: %1$d</string>
+    <string name="zg_tip_begin_login_room">Begin login room：%1$s</string>
+    <string name="zg_tip_stop_publish">Stop Publish</string>
+    <string name="zg_tip_play_stream_success">Play stream success：%1$s</string>
+    <string name="zg_tip_play_stream_failed">Play stream failed：%1$d</string>
+    <string name="zg_tip_publish_stream_success">Publish stream success</string>
+    <string name="zg_tip_publish_stream_failed">Publish stream failed：%1$d</string>
+    <string name="zg_tip_user_leave_a_room">User %1$s leave room</string>
+    <string name="zg_tip_user_enter_a_room">User %1$s enter room</string>
+    <string name="zg_tip_parameter_illegal">Parameter illegal</string>
+    <string name="zg_tip_appid_format_illegal">AppId format illegal</string>
+    <string name="zg_tip_appkey_must_32_bits">AppKey must 32 bits</string>
+    <string name="zg_tip_receive_server_message">Receive Custom Msg: %1$s</string>
+    <string name="zg_tip_user_kickout">onKickout Room: %1$s，errorCode: %2$d</string>
+    <string name="zg_tip_user_disconnect">onDisconnect Room: %1$s，errorCode: %2$d</string>
 
-    <string name="zg_menu_main_show_events">日志</string>
-    <string name="zg_menu_logs_upload_log">上传日志</string>
-    <string name="zg_menu_logs_clear_events">清除</string>
+    <string name="zg_menu_main_show_events">Log</string>
+    <string name="zg_menu_logs_upload_log">Upload log</string>
+    <string name="zg_menu_logs_clear_events">Clear</string>
 
-    <string name="zg_btn_text_mute">静音</string>
-    <string name="zg_btn_text_mute_off">关闭静音</string>
-    <string name="zg_btn_text_aux">开启背景音</string>
-    <string name="zg_btn_text_aux_off">关闭背景音</string>
-    <string name="zg_btn_text_record_on">录音</string>
-    <string name="zg_btn_text_record_off">停止录音</string>
+    <string name="zg_btn_text_mute">Silent</string>
+    <string name="zg_btn_text_mute_off">UnSilent</string>
+    <string name="zg_btn_text_aux">Enable Aux</string>
+    <string name="zg_btn_text_aux_off">Disable Aux</string>
+    <string name="zg_btn_text_record_on">Start Record</string>
+    <string name="zg_btn_text_record_off">Stop Record</string>
+    <string name="zg_btn_text_mic_on">Mic On</string>
+    <string name="zg_btn_text_mic_off">Mic Off</string>
 
-    <string name="zg_checkbox_use_test_env">使用测试环境</string>
-    <string name="zg_checkbox_audio_prepare">开启音频前处理</string>
-    <string name="zg_checkbox_manual_publish">开启手动推流</string>
+    <string name="zg_checkbox_use_test_env">Use test Env</string>
+    <string name="zg_checkbox_audio_prepare">Audio Prep</string>
+    <string name="zg_checkbox_manual_publish">Manual Publish</string>
 
-    <string name="zg_text_app_id">appId: </string>
-    <string name="zg_text_app_key">signKey: </string>
+    <string name="zg_text_app_flavor">AppFlavor</string>
+    <string name="zg_text_app_id">AppId: </string>
+    <string name="zg_text_app_key">AppKey: </string>
+    <string name="zg_text_user_id">UserId: </string>
+    <string name="zg_text_user_name">UserName: </string>
+
+    <string name="zg_text_app_flavor_china">China</string>
+    <string name="zg_text_app_flavor_intl">Int\'l</string>
+    <string name="zg_text_app_flavor_customize">Customize</string>
+
+    <string name="zg_text_sdk_version">SDK Version: </string>
+    <string name="zg_text_ve_version">VE Version: </string>
 </resources>

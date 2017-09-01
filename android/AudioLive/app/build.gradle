@@ -13,9 +13,9 @@ android {
 
         multiDexEnabled true
 
-        ndk {
-            abiFilters "armeabi"
-        }
+//        ndk {
+//            abiFilters "armeabi"
+//        }
     }
 
     signingConfigs {
@@ -45,35 +45,21 @@ android {
         main {
             jniLibs.srcDirs = ['libs']
         }
-
-        udp {
-            res.srcDirs = ["udp/res"]
-        }
-    }
-
-    productFlavors {
-        udp {
-            buildConfigField "long", "APP_ID", "1739272706"
-            applicationIdSuffix ".udp"
-            versionNameSuffix "-udp"
-        }
-        rtmp {
-            buildConfigField "long", "APP_ID", "1"
-        }
     }
 }
 
-def homeDir = System.getenv("HOME")
-
-task copyZegoLibs(type: Copy) {
-    copy {
-        from(homeDir + "/zegolibs/ZegoAudioRoom/android/libs/release") {
-            include("**/*")
-        }
-        into("libs")
-    }
-}
-
+//def homeDir = System.getenv("HOME")
+//
+//task copyZegoLibs(type: Copy) {
+//    println "Hello, Copy zego libs"
+//    copy {
+//        from(homeDir + "/zegolibs/ZegoAudioRoom/android/libs/release") {
+//            include("**/*")
+//        }
+//        into("libs")
+//    }
+//}
+//
 //tasks.withType(org.gradle.api.tasks.compile.JavaCompile) {
 //    compileTask -> compileTask.dependsOn copyZegoLibs
 //}

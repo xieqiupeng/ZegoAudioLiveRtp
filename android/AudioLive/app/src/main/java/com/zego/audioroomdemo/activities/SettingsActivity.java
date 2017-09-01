@@ -4,13 +4,18 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.zego.audioroomdemo.AudioApplication;
+import com.zego.audioroomdemo.utils.AppSignKeyUtils;
 import com.zego.audioroomdemo.utils.PrefUtils;
 import com.zego.audioroomdemo.R;
 import com.zego.zegoaudioroom.*;
@@ -29,6 +34,9 @@ public class SettingsActivity extends AppCompatActivity {
     @Bind(R.id.tv_user_id)
     public TextView tvUserId;
 
+    @Bind(R.id.tv_user_name)
+    public EditText etUserName;
+
     @Bind(R.id.checkbox_use_test_env)
     public CheckBox cbUseTestEnv;
 
@@ -38,8 +46,14 @@ public class SettingsActivity extends AppCompatActivity {
     @Bind(R.id.checkbox_manual_publish)
     public CheckBox cbManualPublish;
 
+    @Bind(R.id.sp_app_flavor)
+    public Spinner spAppFlavors;
+
     @Bind(R.id.et_app_id)
     public EditText etAppId;
+
+    @Bind(R.id.ll_app_key)
+    public LinearLayout llAppKey;
 
     @Bind(R.id.et_app_key)
     public EditText etAppKey;
@@ -47,6 +61,9 @@ public class SettingsActivity extends AppCompatActivity {
     private boolean oldUseTestEnvValue;
     private boolean oldAudioPrepareValue;
     private boolean oldManualPublishValue;
+    private String oldUserName;
+
+    private long oldAppId;
 
     private CompoundButton.OnCheckedChangeListener checkedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
@@ -78,22 +95,70 @@ public class SettingsActivity extends AppCompatActivity {
         tvVersion.setText(ZegoAudioRoom.version());
         tvVersion2.setText(ZegoAudioRoom.version2());
 
-        long appId = -1;
-        String signKey = null;
-        Intent startIntent = getIntent();
-        if (startIntent != null) {
-            appId = startIntent.getLongExtra("appId", -1);
-            signKey = startIntent.getStringExtra("rawKey");
-        }
+        final Intent startIntent = getIntent();
+        spAppFlavors.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 
-        if (appId > 0 && !TextUtils.isEmpty(signKey)) {
-            etAppId.setText(String.valueOf(appId));
-            etAppKey.setText(signKey);
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                long appId = 0;
+                if (position == 2) {
+                    appId = (startIntent != null && startIntent.hasExtra("appId")) ? startIntent.getLongExtra("appId", -1) : -1;
+                    String signKey = (startIntent != null && startIntent.hasExtra("rawKey")) ? startIntent.getStringExtra("rawKey") : "";
+                    if (appId > 0 && !TextUtils.isEmpty(signKey)) {
+                        etAppId.setText(String.valueOf(appId));
+                        etAppKey.setText(signKey);
+
+                        startIntent.removeExtra("appId");
+                        startIntent.removeExtra("rawKey");
+                    } else {
+                        etAppId.setText("");
+                        etAppKey.setText("");
+                    }
+
+                    etAppId.setEnabled(true);
+                    llAppKey.setVisibility(View.VISIBLE);
+                } else {
+                    switch (position) {
+                    case 0:
+                        appId = AppSignKeyUtils.UDP_APP_ID;
+                        break;
+
+                    case 1:
+                        appId = AppSignKeyUtils.INTERNATIONAL_APP_ID;
+                        break;
+                    }
+
+                    etAppId.setEnabled(false);
+                    etAppId.setText(String.valueOf(appId));
+
+                    byte[] signKey = AppSignKeyUtils.requestSignKey(appId);
+                    etAppKey.setText(AppSignKeyUtils.convertSignKey2String(signKey));
+                    llAppKey.setVisibility(View.GONE);
+                }
+                setTitle(AppSignKeyUtils.getAppTitle(appId, SettingsActivity.this));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        oldAppId = (startIntent != null) ? startIntent.getLongExtra("appId", -1) : -1;
+        if (AppSignKeyUtils.isUdpProduct(oldAppId)) {
+            spAppFlavors.setSelection(0);
+            startIntent.removeExtra("appId");
+        } else if (AppSignKeyUtils.isInternationalProduct(oldAppId)) {
+            spAppFlavors.setSelection(1);
+            startIntent.removeExtra("appId");
         } else {
-            etAppId.setText("" + com.zego.audioroomdemo.BuildConfig.APP_ID);
+            spAppFlavors.setSelection(2);
         }
 
         tvUserId.setText(PrefUtils.getUserId());
+
+        oldUserName = PrefUtils.getUserName();
+        etUserName.setText(oldUserName);
 
         oldUseTestEnvValue = AudioApplication.sApplication.isUseTestEnv();
         cbUseTestEnv.setChecked(oldUseTestEnvValue);
@@ -118,30 +183,36 @@ public class SettingsActivity extends AppCompatActivity {
             try {
                 appId = Long.valueOf(_appIdStr);
             } catch (NumberFormatException e) {
-                Toast.makeText(this, "AppId 格式非法", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, R.string.zg_tip_appid_format_illegal, Toast.LENGTH_LONG).show();
+                etAppId.requestFocus();
                 return;
             }
         }
 
         boolean reInitSDK = false;
         Intent resultIntent = null;
-        if (appId != com.zego.audioroomdemo.BuildConfig.APP_ID) {
+        if (appId != oldAppId) {
             // appKey长度必须等于32位
-            String[] keys = appKey.split(",");
-            if (keys.length != 32) {
-                Toast.makeText(this, "AppKey 必须为32位", Toast.LENGTH_LONG).show();
+            byte[] signKey;
+            try {
+                signKey = AppSignKeyUtils.parseSignKeyFromString(appKey);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, R.string.zg_tip_appkey_must_32_bits, Toast.LENGTH_LONG).show();
+                etAppKey.requestFocus();
                 return;
             }
 
-            byte[] signKey = new byte[32];
-            for (int i = 0; i < 32; i++) {
-                int data = Integer.valueOf(keys[i].trim().replace("0x", ""), 16);
-                signKey[i] = (byte) data;
-            }
             resultIntent = new Intent();
             resultIntent.putExtra("appId", appId);
             resultIntent.putExtra("signKey", signKey);
             resultIntent.putExtra("rawKey", appKey);
+            reInitSDK = true;
+        }
+
+        String userName = etUserName.getEditableText().toString();
+        if (!TextUtils.equals(userName, oldUserName)
+                && !TextUtils.isEmpty(userName)) {
+            PrefUtils.setUserName(userName);
             reInitSDK = true;
         }
 

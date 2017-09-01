@@ -9,6 +9,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import com.zego.audioroomdemo.utils.PrefUtils;
 import com.zego.audioroomdemo.utils.AppSignKeyUtils;
 import com.zego.zegoaudioroom.ZegoAudioRoom;
+import com.zego.zegoliveroom.constants.ZegoConstants;
 import com.zego.zegoliveroom.entity.ZegoExtPrepSet;
 
 import java.util.ArrayList;
@@ -55,7 +56,7 @@ public class AudioApplication extends Application {
         initData();
 
         String userId = getUserId();
-        String userName = "ZG-A-" + userId;
+        String userName = getUserName();
 
         CrashReport.initCrashReport(getApplicationContext(), "9a7c25a3f2", false);
         CrashReport.setUserId(userId);
@@ -78,9 +79,26 @@ public class AudioApplication extends Application {
         config.samples = 1;
         ZegoAudioRoom.enableAudioPrep2(PrefUtils.isEnableAudioPrepare(), config);
 
+        // 始终关闭回声消除，避免混音时人声卡顿
+        ZegoAudioRoom.setAudioDeviceMode(ZegoConstants.AudioDeviceMode.General);
+
         mZegoAudioRoom = new ZegoAudioRoom();
         mZegoAudioRoom.setManualPublish(PrefUtils.isManualPublish());
-        mZegoAudioRoom.initWithAppId(BuildConfig.APP_ID, AppSignKeyUtils.requestSignKey(BuildConfig.APP_ID), this);
+
+        long appId;
+        byte[] signKey;
+        long storedAppId = PrefUtils.getAppId();
+        if (storedAppId <= 0) {
+            appId = AppSignKeyUtils.UDP_APP_ID;
+            signKey = AppSignKeyUtils.requestSignKey(AppSignKeyUtils.UDP_APP_ID);
+
+            PrefUtils.setAppId(appId);
+            PrefUtils.setAppKey(signKey);
+        } else {
+            appId = storedAppId;
+            signKey = PrefUtils.getAppKey();
+        }
+        mZegoAudioRoom.initWithAppId(appId, signKey, this);
     }
 
     private String getUserId() {
@@ -90,6 +108,15 @@ public class AudioApplication extends Application {
             PrefUtils.setUserId(userId);
         }
         return userId;
+    }
+
+    private String getUserName() {
+        String userName = PrefUtils.getUserName();
+        if (TextUtils.isEmpty(userName)) {
+            userName = "ZG-A-" + getUserId();
+            PrefUtils.setUserName(userName);
+        }
+        return userName;
     }
 
     public void appendLog(String str) {
