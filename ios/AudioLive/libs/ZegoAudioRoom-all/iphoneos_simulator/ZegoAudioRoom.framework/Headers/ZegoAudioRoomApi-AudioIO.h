@@ -11,8 +11,28 @@
 
 @interface ZegoAudioRoomApi (AudioIO)
 
+/**
+ 启用外部音频采集
+
+ @param enable true 启用，false 不启用。默认 false
+ @discussion 必须在初始化 SDK 前调用
+ */
 + (void)enableExternalAudioDevice:(bool)enable;
+
+/**
+ 获取 IAudioDataInOutput 对象
+ 
+ @return IAudioDataInOutput 对象
+ */
 - (AVE::IAudioDataInOutput* )getIAudioDataInOutput;
+
+/**
+ 耳机插入状态下是否使用回声消除
+ 
+ @param enable true 使用，false 不使用。默认 false
+ @discussion 初始化 SDK 后，推流之前调用
+ */
+- (void)enableAECWhenHeadsetDetected:(bool)enable;
 
 /**
  设置音频前处理函数

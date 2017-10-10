@@ -43,9 +43,10 @@
  统一设置所有拉流的播放音量
  
  @param volume 音量取值范围为(0, 100)，数值越大，音量越大。默认 100
+ @return true 成功，false 失败
  @discussion 通过此 API 软件调整音量
  */
-- (void)setPlayVolume:(int)volume;
+- (bool)setPlayVolume:(int)volume;
 
 /**
  获取当前播放视频的音量

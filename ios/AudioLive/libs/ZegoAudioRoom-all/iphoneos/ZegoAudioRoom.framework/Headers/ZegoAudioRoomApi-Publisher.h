@@ -158,6 +158,14 @@
  */
 - (bool)restartPublishStream;
 
+/**
+ 设置音频设备模式
+ 
+ @param mode 模式
+ @discussion 在 Init 前调用
+ */
++ (void)setAudioDeviceMode:(ZegoAPIAudioDeviceMode) mode;
+
 @end
 
 @protocol ZegoAudioLivePublisherDelegate <NSObject>

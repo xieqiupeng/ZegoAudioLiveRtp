@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/ZegoAudioRoomApi-AudioIO.h</key>
 		<data>
-		ag5C3X71VHQvGPYRr2jBF1ZZPOM=
+		w0rNAx92puVUrr+RuxgYJFv7Ei8=
 		</data>
 		<key>Headers/ZegoAudioRoomApi-IM.h</key>
 		<data>
@@ -22,11 +22,11 @@
 		</data>
 		<key>Headers/ZegoAudioRoomApi-Player.h</key>
 		<data>
-		l3J00c6vixuMoKmtLv0DSHhDrYA=
+		tzxBhglgWxADchaj25iaQIBa5dA=
 		</data>
 		<key>Headers/ZegoAudioRoomApi-Publisher.h</key>
 		<data>
-		SOZ6gk0t95sRxGK+teTjxuRJPUY=
+		veynloynsDpkuGUkMMQ02/pcEWE=
 		</data>
 		<key>Headers/ZegoAudioRoomApi.h</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>Headers/ZegoAudioRoomApiDefines.h</key>
 		<data>
-		I9sSJPAYJep3Mdv1AL/KlXcFK7E=
+		5jnMe5EUthn6aCMhUGEShRPR1dI=
 		</data>
 		<key>Headers/audio_in_output.h</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		ag1v8i1/7xeKvSeijU6JzLg6WXg=
+		icrDY3mlO8aUZOezQGDatGE6cXY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -81,11 +81,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ag5C3X71VHQvGPYRr2jBF1ZZPOM=
+			w0rNAx92puVUrr+RuxgYJFv7Ei8=
 			</data>
 			<key>hash2</key>
 			<data>
-			iEepG1J2d8Ij2v8j+cIEpfkxB+zDr6FFo9GCTvY3s+U=
+			CQlP4kHTsRorPQ8goncbxNWfUq/0rz/ZxHMiShaK6lE=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi-IM.h</key>
@@ -103,22 +103,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l3J00c6vixuMoKmtLv0DSHhDrYA=
+			tzxBhglgWxADchaj25iaQIBa5dA=
 			</data>
 			<key>hash2</key>
 			<data>
-			MqsmptV8HRnSjBtXYq77D1zhH+WeWauC6+HlouOyytI=
+			/13TgVXz1Yup9RM9AbT0bbEbQ36RptU/fkB7lSuoRng=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi-Publisher.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			SOZ6gk0t95sRxGK+teTjxuRJPUY=
+			veynloynsDpkuGUkMMQ02/pcEWE=
 			</data>
 			<key>hash2</key>
 			<data>
-			EoGFtY77VYyHP87qki3CdYI/gbJ0QYYU99LkfwYyQzU=
+			jWRFTKz9005z6ABdkjro5KBOpXmpj9g3s+sxBj92FOM=
 			</data>
 		</dict>
 		<key>Headers/ZegoAudioRoomApi.h</key>
@@ -147,11 +147,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			I9sSJPAYJep3Mdv1AL/KlXcFK7E=
+			5jnMe5EUthn6aCMhUGEShRPR1dI=
 			</data>
 			<key>hash2</key>
 			<data>
-			PefmrcFwxSv7mNolSABOhcEWMjuBANqBr8Wl2tlaiiI=
+			eBTqN/Ea20Yn6coo/wv19i1PDJlKRN3qEeQY4RrOous=
 			</data>
 		</dict>
 		<key>Headers/audio_in_output.h</key>

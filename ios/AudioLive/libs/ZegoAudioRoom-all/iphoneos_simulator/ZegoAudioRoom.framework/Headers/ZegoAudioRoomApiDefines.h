@@ -90,6 +90,16 @@ typedef struct
 
 #ifndef ZegoLiveRoomApiDefines_Publisher_h
 
+/** 音频设备模式 */
+typedef enum : NSUInteger {
+    /** 通话模式, 开启硬件回声消除 */
+    ZEGOAPI_AUDIO_DEVICE_MODE_COMMUNICATION = 1,
+    /** 普通模式, 关闭硬件回声消除 */
+    ZEGOAPI_AUDIO_DEVICE_MODE_GENERAL = 2,
+    /** 自动模式, 根据场景选择是否开启硬件回声消除 */
+    ZEGOAPI_AUDIO_DEVICE_MODE_AUTO = 3
+} ZegoAPIAudioDeviceMode;
+
 typedef enum : NSUInteger {
     /** 普通延迟模式 */
     ZEGOAPI_LATENCY_MODE_NORMAL = 0,
