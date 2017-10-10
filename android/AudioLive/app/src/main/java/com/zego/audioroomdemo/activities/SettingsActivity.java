@@ -1,9 +1,11 @@
 package com.zego.audioroomdemo.activities;
 
 import android.content.Intent;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.CheckBox;
@@ -18,7 +20,11 @@ import com.zego.audioroomdemo.AudioApplication;
 import com.zego.audioroomdemo.utils.AppSignKeyUtils;
 import com.zego.audioroomdemo.utils.PrefUtils;
 import com.zego.audioroomdemo.R;
+import com.zego.audioroomdemo.utils.ShareUtils;
 import com.zego.zegoaudioroom.*;
+
+import java.io.File;
+import java.io.FilenameFilter;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -57,6 +63,9 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Bind(R.id.et_app_key)
     public EditText etAppKey;
+
+    @Bind(R.id.container)
+    public LinearLayout llContainer;
 
     private boolean oldUseTestEnvValue;
     private boolean oldAudioPrepareValue;
@@ -172,6 +181,24 @@ public class SettingsActivity extends AppCompatActivity {
         cbUseTestEnv.setOnCheckedChangeListener(checkedChangeListener);
         cbTurnOnAudioPrepare.setOnCheckedChangeListener(checkedChangeListener);
         cbManualPublish.setOnCheckedChangeListener(checkedChangeListener);
+
+        llContainer.setOnClickListener(new View.OnClickListener() {
+
+            private long[] mHits = new long[5];
+
+            @Override
+            public void onClick(View v) {
+                System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
+                mHits[mHits.length - 1] = SystemClock.uptimeMillis();
+                if (mHits[0] >= SystemClock.uptimeMillis() - 700) {
+                    sendLog2App();
+
+                    for (int i = 0; i < mHits.length; i++) {
+                        mHits[i] = 0;
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -220,5 +247,22 @@ public class SettingsActivity extends AppCompatActivity {
         reInitSDK = reInitSDK | (AudioApplication.sApplication.isUseTestEnv() != oldUseTestEnvValue);
         setResult(reInitSDK ? 1 : 0, resultIntent);
         super.onBackPressed();
+    }
+
+    private void sendLog2App() {
+        String rootPath = com.zego.zegoavkit2.utils.ZegoLogUtil.getLogPath(this);
+        File rootDir = new File(rootPath);
+        File[] logFiles = rootDir.listFiles(new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String name) {
+                return !TextUtils.isEmpty(name) && name.startsWith("zegoavlog") && name.endsWith(".txt");
+            }
+        });
+
+        if (logFiles.length > 0) {
+            ShareUtils.sendFiles(logFiles, this);
+        } else {
+            Log.w("SettingFragment", "not found any log files.");
+        }
     }
 }
