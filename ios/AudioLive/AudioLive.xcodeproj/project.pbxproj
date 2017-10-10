@@ -307,6 +307,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = EF7139DC1D2DEFD200715B6B /* Build configuration list for PBXNativeTarget "AudioLive" */;
 			buildPhases = (
+				EF7200431F7FA08E007EE9A1 /* Create ZegoAudioRoom framework */,
 				EFA8CACC1E5434AB00EDB51D /* Copy ZegoAudioRoom for Development */,
 				EFA8CACE1E54354000EDB51D /* Copy ZegoAudioRoom for Internal Development */,
 				EFA8CACF1E5435B200EDB51D /* Copy ZegoAudioRoom for Deployment */,
@@ -409,6 +410,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = "/usr/bin/env python";
 			shellScript = "import os, shutil\n\nif os.path.exists('./libs/ZegoAudioRoom.framework'):\n    shutil.rmtree('./libs/ZegoAudioRoom.framework')\n\nshutil.copytree('./libs/ZegoAudioRoom-all/iphoneos_simulator_static/ZegoAudioRoom.framework', './libs/ZegoAudioRoom.framework')\nwith open('./libs/zegoaudioroom.version.txt', 'w') as f:\n    f.write('release static')";
+		};
+		EF7200431F7FA08E007EE9A1 /* Create ZegoAudioRoom framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create ZegoAudioRoom framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = "/usr/bin/env python";
+			shellScript = "import os, subprocess\n\nif os.environ['CONFIGURATION'] == 'Release':\n    exit(0)\n\nif os.path.exists('../copy_framework_new.py'):\n    arguments = ['../copy_framework_new.py', '-demo', 'AudioLive', '-framework', 'ZegoAudioRoom']\n    subprocess.call(arguments)";
 		};
 		EFA8CACC1E5434AB00EDB51D /* Copy ZegoAudioRoom for Development */ = {
 			isa = PBXShellScriptBuildPhase;
