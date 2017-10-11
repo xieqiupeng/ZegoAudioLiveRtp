@@ -44,11 +44,7 @@ QZegoBase::QZegoBase(void) : m_dwInitedMask(INIT_NONE)
 	appSigns.push_back(g_bufSignKey_International);
 
 	m_pAVSignal = new QZegoSDKSignal;
-	
-	//Ä¬ÈÏUDP
-	key = 0;
 
-	
 }
 
 QZegoBase::~QZegoBase(void)

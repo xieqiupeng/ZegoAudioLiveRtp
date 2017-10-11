@@ -53,7 +53,9 @@ private :
 	//默认不使用测试环境
 	bool isTestEnv = false;
 
-	int key;
+	//appid、appsign默认为UDP版本
+	int key = Version::ZEGO_PROTOCOL_UDP;
+
 	QVector <unsigned int> appIDs;
 	QVector <unsigned char *> appSigns;
 

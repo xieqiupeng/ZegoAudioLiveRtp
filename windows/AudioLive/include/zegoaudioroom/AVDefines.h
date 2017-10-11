@@ -44,6 +44,11 @@ namespace ZEGO
             
             Publish_BeginRetry = 3,     /**< 开始重试推流 */
             Publish_RetrySuccess = 4,   /**< 重试推流成功 */
+            
+            Play_TempDisconnected = 5,     /**< 拉流临时中断 */
+            Publish_TempDisconnected = 6,  /**< 推流临时中断 */
+            
+            Play_VideoBreak = 7,           /**< 拉流卡顿(视频) */
         };
         
         struct EventInfo
@@ -123,10 +128,18 @@ namespace ZEGO
             ZEGO_TRAFFIC_RESOLUTION = 1 << 1,           /**< 分辨率 */
         };
         
+        /** 推流通道 */
         enum PublishChannelIndex
         {
-            PUBLISH_CHN_MAIN = 0,  ///< 主推流通道，默认
-            PUBLISH_CHN_AUX,       ///< 第二路推流通道，无法推出声音
+            PUBLISH_CHN_MAIN = 0,                       /**< 主推流通道，默认 */
+            PUBLISH_CHN_AUX,                            /**< 第二路推流通道，无法推出声音 */
+        };
+        
+        /** 视频采集缩放时机 */
+        enum ZegoCapturePipelineScaleMode
+        {
+            ZegoCapturePipelinePreScale = 0,        /**< 采集后立即进行缩放，默认 */
+            ZegoCapturePipelinePostScale = 1,       /**< 编码时进行缩放 */
         };
 
         struct ZegoStreamInfo
@@ -197,6 +210,8 @@ namespace ZEGO
             const unsigned char * pUserData;            /**< 用户自定义数据 */
             int nLenOfUserData;                         /**< 用户自定义数据的长度 */
             
+            int nChannels;                              /**< 混流声道数，默认为单声道 */
+            
             ZegoCompleteMixStreamConfig ()
             : bOutputIsUrl(false)
             , nOutputFps(0)
@@ -208,6 +223,7 @@ namespace ZEGO
             , nInputStreamCount(0)
             , pUserData(0)
             , nLenOfUserData(0)
+            , nChannels(1)
             {
                 szOutputStream[0] = '\0';
             }

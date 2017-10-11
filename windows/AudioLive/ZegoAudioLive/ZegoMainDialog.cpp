@@ -497,7 +497,7 @@ void ZegoAudioLive::OnComboBoxValueChanged(int id)
 		ui.m_edAppSign->setEnabled(true);
 	}
 	//±êÌâ
-	this->setWindowTitle(QStringLiteral("ZegoAudioLive(%1)").arg(ui.m_cbAppVersion->currentText()));
+	this->setWindowTitle(QStringLiteral("ZegoAudioLive(%1) | °æ±¾: %2").arg(ui.m_cbAppVersion->currentText()).arg(AUDIOROOM::GetSDKVersion()));
 }
 
 void ZegoAudioLive::OnClose()
