@@ -56,19 +56,27 @@ namespace AVE
         virtual void stopCapture() = 0;
         virtual void startRender() = 0;
         virtual void stopRender() = 0;
-        virtual bool onRecordAudioFrame(AudioFrame& audioFrame) = 0;
+        virtual bool onRecordAudioFrame(const AudioFrame& audioFrame) = 0;
         virtual bool onPlaybackAudioFrame(AudioFrame& audioFrame) = 0;
     };
+
     
     struct ExtPrepSet
     {
         bool bEncode;           /*
-                                 bEncode == false, external prep output PCM data, ignore Samples.
-                                 bEncode == true, external prep output aac encode data
-                                 */
+                                 bEncode == false, external prep output PCM data.
+                                 bEncode == true, external prep output AAC encode data(only support aac encode)
+                                */
 		int nSampleRate;        //pcm capture or encode sample rate, if 0 use sdk inner sample rate..
         int nChannel;           //pcm capture or encode channels. if 0 use sdk inner channels.
-		int nSamples;           //encode one frame need samples. pcm ignore this parameter.
+		int nSamples;           /*
+                                 bEncode == false, if nSamples == 0. use sdk inner samples, push 20ms audio data to external prep module once.
+								                   else push nSamples(nSamples >= 160 AND nSamples <= 2048) audio data to external prep module once,
+												   some audio processing algorithm may need length not 20ms.
+														
+                                 bEncode == true, AAC encode one frame need samples(480/512/1024/1960/2048).
+                                */
+		
     };
     
     typedef void(*OnPrepCallback)(const AudioFrame& inFrame, AudioFrame& outFrame);
@@ -79,7 +87,7 @@ namespace AVE
      AudioFrame.frameType = TYPE_PCM;
      AudioFrame.timeStamp = 0;
      AudioFrame.configLen = 0;
-     AudioFrame.bufLen = AudioFrame.samples * AudioFrame.channels * 2(bytesPerSample);
+     AudioFrame.bufLen = AudioFrame.samples * AudioFrame.channels * 2(bitDepthInByte);
      
      AudioFrame& outFrame:
      outFrame is used for receiving data after called handle.
@@ -94,7 +102,7 @@ namespace AVE
      outFrame.frameType = TYPE_PCM;
 	 AudioFrame.timeStamp = 0;
 	 AudioFrame.configLen = 0;
-	 AudioFrame.bufLen = AudioFrame.samples * AudioFrame.channels * 2(bytesPerSample);
+	 AudioFrame.bufLen = AudioFrame.samples * AudioFrame.channels * 2(bitDepthInByte);
 	 
 	 PS：
      Even without any treatment, you need copy data from inFrame to outFrame,else the outFrame.buffer is empty data(all zeros/000000....0000);

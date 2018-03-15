@@ -180,6 +180,16 @@
 - (void)onPublishStateUpdate:(int)stateCode streamID:(NSString *)streamID streamInfo:(NSDictionary *)info;
 
 @optional
+/**
+ 发布质量更新
+ 
+ @param streamID streamID 发布流 ID
+ @param quality quality 参考ZegoApiPublishQuality定义
+ @discussion startPublish 后，该 API 会被多次回调。调用者可以在此回调中获取当前的视频质量数据，加以处理
+ */
+- (void)onPublishQualityUpdate:(NSString *)streamID quality:(ZegoApiPublishQuality)quality;
+
+@optional
 
 /**
  混音数据输入回调

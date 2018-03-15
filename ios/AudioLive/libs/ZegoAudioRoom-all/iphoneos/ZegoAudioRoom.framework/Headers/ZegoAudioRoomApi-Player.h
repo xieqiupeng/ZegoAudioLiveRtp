@@ -49,6 +49,16 @@
 - (bool)setPlayVolume:(int)volume;
 
 /**
+ 设置指定拉流的播放音量
+ 
+ @param volume 音量取值范围为(0, 100)，数值越大，音量越大。默认 100
+ @streamID  流ID. ID为空时, 统一设置所有拉流的播放音量
+ @return true 成功, false 失败
+ @discussion 直播时通过此 API 软件调整音量
+ */
+- (bool)setPlayVolume:(int)volume ofStream:(NSString *)streamID;
+
+/**
  获取当前播放视频的音量
  
  @param streamID 播放流 ID
@@ -116,6 +126,15 @@
  @param stream 流信息
  */
 - (void)onPlayStateUpdate:(int)stateCode stream:(ZegoAudioStream *)stream;
+
+@optional
+/**
+ 观看质量更新
+ 
+ @param streamID 观看流ID
+ @param quality quality 参考ZegoApiPlayQuality定义
+ */
+- (void)onPlayQualityUpate:(NSString *)streamID quality:(ZegoApiPlayQuality)quality;
 
 @end
 

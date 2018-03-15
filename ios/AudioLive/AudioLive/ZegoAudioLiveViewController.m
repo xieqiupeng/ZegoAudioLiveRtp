@@ -395,6 +395,11 @@
     }
 }
 
+- (void)onPublishQualityUpdate:(NSString *)streamID quality:(ZegoApiPublishQuality)quality
+{
+    NSLog(@"onPublishQualityUpdate, streamID: %@, quality: %d, audiobiterate: %fkb", streamID, quality.quality, quality.akbps);
+}
+
 #pragma mark - ZegoAudioLivePlayerDelegate
 
 - (void)onPlayStateUpdate:(int)stateCode stream:(ZegoAudioStream *)stream
@@ -409,6 +414,11 @@
         [self addLogString:[NSString stringWithFormat:NSLocalizedString(@"拉流失败: %@, error: %d", nil), stream.streamID, stateCode]];
         self.tipsLabel.text = [NSString stringWithFormat:NSLocalizedString(@"拉流失败: %d", nil), stateCode];
     }
+}
+
+- (void)onPlayQualityUpate:(NSString *)streamID quality:(ZegoApiPlayQuality)quality
+{
+    NSLog(@"onPlayQualityUpate, streamID: %@, quality: %d, audiobiterate: %fkb", streamID, quality.quality, quality.akbps);
 }
 
 #pragma mark - ZegoAudioRoomDelegate

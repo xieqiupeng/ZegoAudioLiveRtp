@@ -9,6 +9,8 @@
 #ifndef ZegoAudioRoomApiDefines_h
 #define ZegoAudioRoomApiDefines_h
 
+#import "zego-api-defines-oc.h"
+
 #ifndef ZEGO_EXTERN
 #ifdef __cplusplus
 #define ZEGO_EXTERN     extern "C"
@@ -57,61 +59,6 @@ typedef enum : NSUInteger {
 
 /** AudioSession相关配置信息的key, 值为 NSString */
 ZEGO_EXTERN NSString *const kZegoAudioRoomConfigKeepAudioSesionActive;
-
-#ifndef ZegoLiveRoomApiDefines_h
-
-enum ZegoAPIAudioRecordMask
-{
-    /** 关闭音频录制 */
-    ZEGOAPI_AUDIO_RECORD_NONE      = 0x0,
-    /** 打开采集录制 */
-    ZEGOAPI_AUDIO_RECORD_CAP       = 0x01,
-    /** 打开渲染录制 */
-    ZEGOAPI_AUDIO_RECORD_RENDER    = 0x02,
-    /** 打开采集和渲染混音结果录制 */
-    ZEGOAPI_AUDIO_RECORD_MIX       = 0x04
-};
-
-/** 音频录制配置信息 */
-typedef struct
-{
-    /** 启用音频源选择，参考 ZegoAVAPIAudioRecordMask */
-    unsigned int mask;
-    
-    /** 采样率 8000, 16000, 22050, 24000, 32000, 44100, 48000 */
-    int sampleRate;
-    
-    /** 声道数 1(单声道) 或 2(双声道) */
-    int channels;
-    
-} ZegoAPIAudioRecordConfig;
-
-#endif
-
-#ifndef ZegoLiveRoomApiDefines_Publisher_h
-
-/** 音频设备模式 */
-typedef enum : NSUInteger {
-    /** 通话模式, 开启硬件回声消除 */
-    ZEGOAPI_AUDIO_DEVICE_MODE_COMMUNICATION = 1,
-    /** 普通模式, 关闭硬件回声消除 */
-    ZEGOAPI_AUDIO_DEVICE_MODE_GENERAL = 2,
-    /** 自动模式, 根据场景选择是否开启硬件回声消除 */
-    ZEGOAPI_AUDIO_DEVICE_MODE_AUTO = 3
-} ZegoAPIAudioDeviceMode;
-
-typedef enum : NSUInteger {
-    /** 普通延迟模式 */
-    ZEGOAPI_LATENCY_MODE_NORMAL = 0,
-    /** 低延迟模式，无法用于 RTMP 流 */
-    ZEGOAPI_LATENCY_MODE_LOW,
-    /** 普通延迟模式，最高码率可达192K */
-    ZEGOAPI_LATENCY_MODE_NORMAL2,
-    /** 低延迟模式，无法用于 RTMP 流。相对于 ZEGO_LATENCY_MODE_LOW 而言，CPU 开销稍低 */
-    ZEGOAPI_LATENCY_MODE_LOW2,
-} ZegoAPILatencyMode;
-
-#endif
 
 #ifndef ZegoLiveRoomApiDefines_IM_h
 

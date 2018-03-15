@@ -54,7 +54,10 @@
 "LIr-7o-b5b.title" = "AudioLive";
 
 /* Class = "UILabel"; text = "Upload Log"; ObjectID = "M7Z-nC-fxt"; */
-"M7Z-nC-fxt.text" = "Upload Log";
+"M7Z-nC-fxt.text" = "上传日志";
+
+/* Class = "UILabel"; text = "Share Log"; ObjectID = "aGP-li-ZUX"; */
+"aGP-li-ZUX.text" = "分享日志";
 
 /* Class = "UINavigationItem"; title = "日志"; ObjectID = "NhF-dW-V9B"; */
 "NhF-dW-V9B.title" = "日志";
