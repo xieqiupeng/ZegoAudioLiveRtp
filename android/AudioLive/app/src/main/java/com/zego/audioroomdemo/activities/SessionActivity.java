@@ -43,6 +43,7 @@ import com.zego.zegoliveroom.constants.ZegoIM;
 import com.zego.zegoliveroom.entity.ZegoAudioFrame;
 import com.zego.zegoliveroom.entity.ZegoConversationMessage;
 import com.zego.zegoliveroom.entity.ZegoRoomMessage;
+import com.zego.zegoliveroom.entity.ZegoStreamQuality;
 import com.zego.zegoliveroom.entity.ZegoUserState;
 
 import java.io.IOException;
@@ -263,6 +264,11 @@ public class SessionActivity extends AppCompatActivity {
             }
 
             @Override
+            public void onUpdateOnlineCount(String s, int i) {
+                MainActivity.ZGLog.d("online count: %d", i);
+            }
+
+            @Override
             public void onRecvRoomMessage(String roomId, ZegoRoomMessage[] messages) {
                 messageAdapter.updateData(messages);
             }
@@ -270,6 +276,11 @@ public class SessionActivity extends AppCompatActivity {
             @Override
             public void onRecvConversationMessage(String roomId, String conversationId, ZegoConversationMessage message) {
                 MainActivity.ZGLog.d("onRecvConversationMessage, roomId: %s; conversationId: %s", roomId, conversationId);
+            }
+
+            @Override
+            public void onRecvBigRoomMessage(String s, com.zego.zegoliveroom.entity.ZegoBigRoomMessage[] zegoBigRoomMessages) {
+                MainActivity.ZGLog.d("onRecvBigRoomMessage, roomId: %s", s);
             }
 
             @Override
@@ -329,6 +340,12 @@ public class SessionActivity extends AppCompatActivity {
                 auxData.channelCount = 2;
                 return auxData;
             }
+
+            @Override
+            public void onPublishQualityUpdate(String streamId, ZegoStreamQuality zegoStreamQuality) {
+                MainActivity.ZGLog.d("onPublishQualityUpdate, streamId: %s, quality: %d, audioBitrate: %fkb",
+                        streamId, zegoStreamQuality.quality, zegoStreamQuality.audioBitrate);
+            }
         });
         zegoAudioRoom.setAudioPlayerDelegate(new ZegoAudioLivePlayerDelegate() {
             @Override
@@ -339,6 +356,12 @@ public class SessionActivity extends AppCompatActivity {
                 } else {
                     tvEventTips.setText(getString(R.string.zg_tip_play_stream_failed, stateCode));
                 }
+            }
+
+            @Override
+            public void onPlayQualityUpdate(String streamId, ZegoStreamQuality zegoStreamQuality) {
+                MainActivity.ZGLog.d("onPlayQualityUpdate, streamId: %s, quality: %d,  audioBitrate: %fkb",
+                        streamId, zegoStreamQuality.quality, zegoStreamQuality.audioBitrate);
             }
         });
         zegoAudioRoom.setAudioLiveEventDelegate(new ZegoAudioLiveEventDelegate() {

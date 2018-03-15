@@ -13,9 +13,9 @@ android {
 
         multiDexEnabled true
 
-//        ndk {
-//            abiFilters "armeabi"
-//        }
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'//, 'arm64-v8a', 'armeabi'
+        }
     }
 
     signingConfigs {
