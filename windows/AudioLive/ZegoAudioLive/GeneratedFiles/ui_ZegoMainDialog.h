@@ -16,7 +16,6 @@
 #include <QtWidgets/QCheckBox>
 #include <QtWidgets/QComboBox>
 #include <QtWidgets/QDialog>
-#include <QtWidgets/QFormLayout>
 #include <QtWidgets/QFrame>
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
@@ -40,20 +39,24 @@ public:
     QVBoxLayout *verticalLayout_2;
     QSpacerItem *verticalSpacer_6;
     QVBoxLayout *verticalLayout;
-    QFormLayout *formLayout;
+    QHBoxLayout *horizontalLayout_4;
     QLabel *m_lbUserID;
+    QSpacerItem *horizontalSpacer_4;
     QLineEdit *m_edUserID;
     QSpacerItem *verticalSpacer;
-    QFormLayout *formLayout_3;
+    QHBoxLayout *horizontalLayout_5;
     QLabel *m_lbUserName;
+    QSpacerItem *horizontalSpacer_5;
     QLineEdit *m_edUserName;
     QSpacerItem *verticalSpacer_2;
-    QFormLayout *formLayout_2;
+    QHBoxLayout *horizontalLayout_3;
     QLabel *m_lbAppID;
+    QSpacerItem *horizontalSpacer_3;
     QLineEdit *m_edAppID;
     QSpacerItem *verticalSpacer_5;
-    QFormLayout *formLayout_4;
+    QHBoxLayout *horizontalLayout_2;
     QLabel *m_lbAppSign;
+    QSpacerItem *horizontalSpacer_2;
     QTextEdit *m_edAppSign;
     QSpacerItem *verticalSpacer_3;
     QHBoxLayout *horizontalLayout;
@@ -78,7 +81,7 @@ public:
     {
         if (ZegoAudioLiveClass->objectName().isEmpty())
             ZegoAudioLiveClass->setObjectName(QStringLiteral("ZegoAudioLiveClass"));
-        ZegoAudioLiveClass->resize(1048, 700);
+        ZegoAudioLiveClass->resize(1079, 700);
         horizontalLayout_7 = new QHBoxLayout(ZegoAudioLiveClass);
         horizontalLayout_7->setSpacing(10);
         horizontalLayout_7->setContentsMargins(11, 11, 11, 11);
@@ -102,17 +105,19 @@ public:
         verticalLayout = new QVBoxLayout();
         verticalLayout->setSpacing(0);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        formLayout = new QFormLayout();
-        formLayout->setSpacing(6);
-        formLayout->setObjectName(QStringLiteral("formLayout"));
-        formLayout->setHorizontalSpacing(27);
-        formLayout->setVerticalSpacing(9);
+        horizontalLayout_4 = new QHBoxLayout();
+        horizontalLayout_4->setSpacing(0);
+        horizontalLayout_4->setObjectName(QStringLiteral("horizontalLayout_4"));
         m_lbUserID = new QLabel(m_AreaBeforePublish);
         m_lbUserID->setObjectName(QStringLiteral("m_lbUserID"));
         m_lbUserID->setStyleSheet(QString::fromUtf8("font-family: \345\276\256\350\275\257\351\233\205\351\273\221;\n"
 "font-size: 16px;"));
 
-        formLayout->setWidget(0, QFormLayout::LabelRole, m_lbUserID);
+        horizontalLayout_4->addWidget(m_lbUserID);
+
+        horizontalSpacer_4 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_4->addItem(horizontalSpacer_4);
 
         m_edUserID = new QLineEdit(m_AreaBeforePublish);
         m_edUserID->setObjectName(QStringLiteral("m_edUserID"));
@@ -120,26 +125,28 @@ public:
         m_edUserID->setMaximumSize(QSize(508, 32));
         m_edUserID->setFocusPolicy(Qt::ClickFocus);
 
-        formLayout->setWidget(0, QFormLayout::FieldRole, m_edUserID);
+        horizontalLayout_4->addWidget(m_edUserID);
 
 
-        verticalLayout->addLayout(formLayout);
+        verticalLayout->addLayout(horizontalLayout_4);
 
         verticalSpacer = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         verticalLayout->addItem(verticalSpacer);
 
-        formLayout_3 = new QFormLayout();
-        formLayout_3->setSpacing(6);
-        formLayout_3->setObjectName(QStringLiteral("formLayout_3"));
-        formLayout_3->setHorizontalSpacing(28);
-        formLayout_3->setVerticalSpacing(9);
+        horizontalLayout_5 = new QHBoxLayout();
+        horizontalLayout_5->setSpacing(0);
+        horizontalLayout_5->setObjectName(QStringLiteral("horizontalLayout_5"));
         m_lbUserName = new QLabel(m_AreaBeforePublish);
         m_lbUserName->setObjectName(QStringLiteral("m_lbUserName"));
         m_lbUserName->setStyleSheet(QString::fromUtf8("font-family: \345\276\256\350\275\257\351\233\205\351\273\221;\n"
 "font-size: 16px;"));
 
-        formLayout_3->setWidget(1, QFormLayout::LabelRole, m_lbUserName);
+        horizontalLayout_5->addWidget(m_lbUserName);
+
+        horizontalSpacer_5 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_5->addItem(horizontalSpacer_5);
 
         m_edUserName = new QLineEdit(m_AreaBeforePublish);
         m_edUserName->setObjectName(QStringLiteral("m_edUserName"));
@@ -147,10 +154,10 @@ public:
         m_edUserName->setMaximumSize(QSize(508, 32));
         m_edUserName->setFocusPolicy(Qt::ClickFocus);
 
-        formLayout_3->setWidget(1, QFormLayout::FieldRole, m_edUserName);
+        horizontalLayout_5->addWidget(m_edUserName);
 
 
-        verticalLayout->addLayout(formLayout_3);
+        verticalLayout->addLayout(horizontalLayout_5);
 
 
         verticalLayout_2->addLayout(verticalLayout);
@@ -159,17 +166,19 @@ public:
 
         verticalLayout_2->addItem(verticalSpacer_2);
 
-        formLayout_2 = new QFormLayout();
-        formLayout_2->setSpacing(6);
-        formLayout_2->setObjectName(QStringLiteral("formLayout_2"));
-        formLayout_2->setHorizontalSpacing(25);
-        formLayout_2->setVerticalSpacing(0);
+        horizontalLayout_3 = new QHBoxLayout();
+        horizontalLayout_3->setSpacing(0);
+        horizontalLayout_3->setObjectName(QStringLiteral("horizontalLayout_3"));
         m_lbAppID = new QLabel(m_AreaBeforePublish);
         m_lbAppID->setObjectName(QStringLiteral("m_lbAppID"));
         m_lbAppID->setStyleSheet(QString::fromUtf8("font-family: \345\276\256\350\275\257\351\233\205\351\273\221;\n"
 "font-size: 16px;"));
 
-        formLayout_2->setWidget(1, QFormLayout::LabelRole, m_lbAppID);
+        horizontalLayout_3->addWidget(m_lbAppID);
+
+        horizontalSpacer_3 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_3->addItem(horizontalSpacer_3);
 
         m_edAppID = new QLineEdit(m_AreaBeforePublish);
         m_edAppID->setObjectName(QStringLiteral("m_edAppID"));
@@ -177,26 +186,28 @@ public:
         m_edAppID->setMaximumSize(QSize(508, 32));
         m_edAppID->setFocusPolicy(Qt::ClickFocus);
 
-        formLayout_2->setWidget(1, QFormLayout::FieldRole, m_edAppID);
+        horizontalLayout_3->addWidget(m_edAppID);
 
 
-        verticalLayout_2->addLayout(formLayout_2);
+        verticalLayout_2->addLayout(horizontalLayout_3);
 
         verticalSpacer_5 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
 
         verticalLayout_2->addItem(verticalSpacer_5);
 
-        formLayout_4 = new QFormLayout();
-        formLayout_4->setSpacing(6);
-        formLayout_4->setObjectName(QStringLiteral("formLayout_4"));
-        formLayout_4->setHorizontalSpacing(10);
-        formLayout_4->setVerticalSpacing(0);
+        horizontalLayout_2 = new QHBoxLayout();
+        horizontalLayout_2->setSpacing(0);
+        horizontalLayout_2->setObjectName(QStringLiteral("horizontalLayout_2"));
         m_lbAppSign = new QLabel(m_AreaBeforePublish);
         m_lbAppSign->setObjectName(QStringLiteral("m_lbAppSign"));
         m_lbAppSign->setStyleSheet(QString::fromUtf8("font-family: \345\276\256\350\275\257\351\233\205\351\273\221;\n"
 "font-size: 16px;"));
 
-        formLayout_4->setWidget(1, QFormLayout::LabelRole, m_lbAppSign);
+        horizontalLayout_2->addWidget(m_lbAppSign);
+
+        horizontalSpacer_2 = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+
+        horizontalLayout_2->addItem(horizontalSpacer_2);
 
         m_edAppSign = new QTextEdit(m_AreaBeforePublish);
         m_edAppSign->setObjectName(QStringLiteral("m_edAppSign"));
@@ -204,10 +215,10 @@ public:
         m_edAppSign->setMaximumSize(QSize(508, 158));
         m_edAppSign->setFocusPolicy(Qt::ClickFocus);
 
-        formLayout_4->setWidget(1, QFormLayout::FieldRole, m_edAppSign);
+        horizontalLayout_2->addWidget(m_edAppSign);
 
 
-        verticalLayout_2->addLayout(formLayout_4);
+        verticalLayout_2->addLayout(horizontalLayout_2);
 
         verticalSpacer_3 = new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed);
 

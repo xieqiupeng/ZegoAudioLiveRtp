@@ -11,13 +11,13 @@
 #include "./AVDefines.h"
 
 #ifdef WIN32
-#ifdef ZEGO_EXPORTS
-#define ZEGO_API __declspec(dllexport)
+    #ifdef ZEGO_EXPORTS
+        #define ZEGO_API __declspec(dllexport)
+    #else
+        #define ZEGO_API __declspec(dllimport)
+    #endif
 #else
-#define ZEGO_API __declspec(dllimport)
-#endif
-#else
-#define ZEGO_API __attribute__((visibility("default")))
+    #define ZEGO_API __attribute__((visibility("default")))
 #endif
 
 namespace ZEGO
@@ -46,8 +46,8 @@ namespace ZEGO
                 szExtraInfo[0] = '\0';
             }
             
-            char szUserId[ZEGO_MAX_COMMON_LEN];
-            char szUserName[ZEGO_MAX_COMMON_LEN];
+            char szUserId[ZEGO_MAX_USERID_LEN];
+            char szUserName[ZEGO_MAX_USERNAME_LEN];
             char szStreamId[ZEGO_MAX_COMMON_LEN];
             char szExtraInfo[ZEGO_MAX_COMMON_LEN];
         };
@@ -139,8 +139,8 @@ namespace ZEGO
                 szUserName[0] = '\0';
             }
 
-            char szUserId[ZEGO_MAX_COMMON_LEN];
-            char szUserName[ZEGO_MAX_COMMON_LEN];
+            char szUserId[ZEGO_MAX_USERID_LEN];
+            char szUserName[ZEGO_MAX_USERNAME_LEN];
             ZegoUserUpdateFlag udapteFlag;
             ZegoRoomRole role;
         };
@@ -161,8 +161,8 @@ namespace ZEGO
                 szUserName[0] = '\0';
             }
 
-            char szUserId[ZEGO_MAX_COMMON_LEN];
-            char szUserName[ZEGO_MAX_COMMON_LEN];
+            char szUserId[ZEGO_MAX_USERID_LEN];
+            char szUserName[ZEGO_MAX_USERNAME_LEN];
         };
 
         /** 消息类型 */
@@ -190,6 +190,13 @@ namespace ZEGO
             Gift,               /**< 送礼物 */
             OtherCategory = 100,/**< 其他 */
         };
+        
+        /** Relay类别 */
+        enum ZegoRelayType
+        {
+            RelayTypeNone = 1,
+            RelayTypeDati = 2,
+        };
 
         struct ZegoRoomMessage
         {
@@ -198,18 +205,22 @@ namespace ZEGO
                 szUserId[0] = '\0';
                 szUserName[0] = '\0';
                 szContent[0] = '\0';
+                role = COMMON::Audience;
                 type = Text;
                 priority = Default;
                 category = Chat;
+                sendTime = 0;
             }
 
-            char szUserId[ZEGO_MAX_COMMON_LEN];
-            char szUserName[ZEGO_MAX_COMMON_LEN];
+            char szUserId[ZEGO_MAX_USERID_LEN];
+            char szUserName[ZEGO_MAX_USERNAME_LEN];
+            COMMON::ZegoRoomRole role;
             char szContent[ZEGO_MAX_COMMON_LEN];
             unsigned long long messageId;
             ZegoMessageType type;
             ZegoMessagePriority priority;
             ZegoMessageCategory category;
+            unsigned long long sendTime;
         };
 
         struct ZegoConversationMessage
@@ -223,19 +234,43 @@ namespace ZEGO
                 sendTime = 0;
             }
 
-            char szUserId[ZEGO_MAX_COMMON_LEN];
-            char szUserName[ZEGO_MAX_COMMON_LEN];
+            char szUserId[ZEGO_MAX_USERID_LEN];
+            char szUserName[ZEGO_MAX_USERNAME_LEN];
             char szContent[ZEGO_MAX_COMMON_LEN];
             unsigned long long messageId;
             ZegoMessageType type;
-            int sendTime;
+            unsigned long long sendTime;
         };
 
         struct ZegoConverInfo
         {
             char szConverName[ZEGO_MAX_COMMON_LEN];
-            char szCreatorId[ZEGO_MAX_COMMON_LEN];
+            char szCreatorId[ZEGO_MAX_USERID_LEN];
             int createTime;
+        };
+        
+        struct ZegoBigRoomMessage
+        {
+            ZegoBigRoomMessage()
+            {
+                szUserId[0] = '\0';
+                szUserName[0] = '\0';
+                szContent[0] = '\0';
+                szMessageId[0] = '\0';
+                role = COMMON::Audience;
+                type = Text;
+                category = Chat;
+                sendTime = 0;
+            }
+            
+            char szUserId[ZEGO_MAX_USERID_LEN];
+            char szUserName[ZEGO_MAX_USERNAME_LEN];
+            COMMON::ZegoRoomRole role;
+            char szContent[ZEGO_MAX_COMMON_LEN];
+            char szMessageId[ZEGO_MAX_IDENTITY_LEN];
+            ZegoMessageType type;
+            ZegoMessageCategory category;
+            unsigned long long sendTime;
         };
     }
 }

@@ -6,9 +6,9 @@
 #include <QTime>
 #include <QMessageBox>
 #include "ui_ZegoMainDialog.h"
-#include "ZegoUserConfig.h"
-#include "ZegoStreamModel.h"
-#include "ZegoBase.h"
+#include "Config/ZegoUserConfig.h"
+#include "Model/ZegoStreamModel.h"
+#include "Base/ZegoBase.h"
 #include "ZegoAudioDemo.h"
 
 class ZegoAudioLive : public QDialog
@@ -34,13 +34,15 @@ protected slots:
     void OnPlayStateUpdate(int stateCode, StreamPtr pStream);
     void OnAudioDeviceChanged(AV::AudioDeviceType deviceType, const QString& strDeviceId, const QString& strDeviceName, AV::DeviceState state);
 
-public slots:
+protected slots:
 	void OnButtonClickedPublish();
 	void OnCheckMute();
 	void OnCheckTestEnv();
 	void OnCheckManualPublish();
 	void OnComboBoxValueChanged(int id);
 	void OnClose();
+	void OnEditedUserID();
+	void OnEditedUserName();
 
 private:
 	void insertStringListModelItem(QStringListModel * model, QString name, int size);
@@ -48,6 +50,13 @@ private:
 	void startManualPublish();
 	void addLogString(const QString& name);
 	void switchBeforePublishArea(bool isEnabled);
+	QVector<QString> handleStringAppSign(QString appSign);
+	void startRestartPublishTimer();
+	
+
+
+private slots:
+	void restartPublishStream();
 
 private:
 	Ui::ZegoAudioLiveClass ui;
@@ -89,6 +98,13 @@ private:
 	
 	//是否自定义模式
 	bool isCustom;
+	//重新推流定时器
+	QTimer *timer = nullptr;
+	//最大重推流次数
+	int publishCount=0;
+	//是否自定义模式
+	bool isPrompt = true;
+	
 };
 
 #endif // ZEGOMAINDIALOG_H

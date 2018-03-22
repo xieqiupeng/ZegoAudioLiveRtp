@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ZegoBase.h"
+#include "Base/ZegoBase.h"
 
 
 class QZegoAudioDemoApp
