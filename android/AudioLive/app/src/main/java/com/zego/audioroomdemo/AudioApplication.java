@@ -134,6 +134,7 @@ public class AudioApplication extends Application {
     }
 
     private ArrayList<ILogUpdateObserver> mLogObservers = new ArrayList<>();
+
     public synchronized void registerLogUpdateObserver(ILogUpdateObserver observer) {
         if (observer != null && !mLogObservers.contains(observer)) {
             mLogObservers.add(observer);

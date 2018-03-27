@@ -1,11 +1,13 @@
 <resources>
-    <string name="zg_app_name">AudioLive</string>
-    <string name="zg_app_title">AudioLive(%1$s)</string>
+    <string name="zg_app_name"></string>
+    <string name="zg_app_title"></string>
+    <string name="zg_app_title_bak">(%1$s)</string>
     <string name="zg_login_room">登录房间</string>
     <string name="zg_logout_room">关闭</string>
+    <string name="zg_start_call">拨打电话</string>
+    <string name="zg_stop_call">挂断电话</string>
     <string name="zg_start_communicate">开始语音</string>
     <string name="zg_stop_communicate">停止语音</string>
-
     <string name="zg_tip_input_room_name">输入房间ID</string>
     <string name="zg_tip_no_stream">没有流数据</string>
     <string name="zg_tip_no_events">没有数据</string>

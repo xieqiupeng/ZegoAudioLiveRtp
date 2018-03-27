@@ -1,0 +1,6 @@
+*.iml
+*.properties
+android/AudioLive/.gradle/
+android/AudioLive/.idea/
+android/AudioLive/app/build/
+android/AudioLive/build/
