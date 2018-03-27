@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -223,9 +222,8 @@ public class SessionActivity extends AppCompatActivity {
 	public void onViewClicked(View view) {
 		switch (view.getId()) {
 			case R.id.btn_call_action:
-				Log.w("SessionActivityCall", "button call");
 				Intent intentPhone = new Intent(Intent.ACTION_CALL,
-						Uri.parse("tel:17610790210"));
+						Uri.parse("tel:18801491463"));
 				startActivity(intentPhone);
 				break;
 			case R.id.btn_communicate_action:
@@ -329,13 +327,12 @@ public class SessionActivity extends AppCompatActivity {
 			}
 		});
 		zegoAudioRoom.setAudioPublisherDelegate(new ZegoAudioLivePublisherDelegate() {
-
+			// TODO 推流成功
 			@Override
 			public void onPublishStateUpdate(int stateCode, String streamId, HashMap<String, Object> info) {
 				MainActivity.ZGLog.d("onPublishStateUpdate, stateCode: %d, streamId: %s, info: %s", stateCode, streamId, info);
 
 				btnCommunicate.setEnabled(true);
-
 				if (stateCode == 0) {
 					hasPublish = true;
 					publishStreamId = streamId;
@@ -343,7 +340,6 @@ public class SessionActivity extends AppCompatActivity {
 					streamAdapter.insertItem(myStream);
 
 					btnCommunicate.setText(R.string.zg_stop_communicate);
-					// TODO 推流成功
 					tvEventTips.setText(R.string.zg_tip_publish_stream_success);
 				} else {
 					btnCommunicate.setText(R.string.zg_start_communicate);
@@ -351,6 +347,7 @@ public class SessionActivity extends AppCompatActivity {
 				}
 			}
 
+			// TODO 背景音
 			@Override
 			public ZegoAuxData onAuxCallback(int dataLen) {
 				if (dataLen <= 0) return null;
@@ -398,6 +395,7 @@ public class SessionActivity extends AppCompatActivity {
 						streamId, zegoStreamQuality.quality, zegoStreamQuality.audioBitrate);
 			}
 		});
+		// TODO 拉流成功
 		zegoAudioRoom.setAudioPlayerDelegate(new ZegoAudioLivePlayerDelegate() {
 			@Override
 			public void onPlayStateUpdate(int stateCode, ZegoAudioStream zegoAudioStream) {
