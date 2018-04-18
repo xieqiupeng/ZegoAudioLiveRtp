@@ -20,8 +20,8 @@
 
 QT_BEGIN_MOC_NAMESPACE
 struct qt_meta_stringdata_ZegoAudioLive_t {
-    QByteArrayData data[41];
-    char stringdata0[541];
+    QByteArrayData data[44];
+    char stringdata0[594];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -70,7 +70,10 @@ QT_MOC_LITERAL(36, 471, 14), // "OnCheckTestEnv"
 QT_MOC_LITERAL(37, 486, 20), // "OnCheckManualPublish"
 QT_MOC_LITERAL(38, 507, 22), // "OnComboBoxValueChanged"
 QT_MOC_LITERAL(39, 530, 2), // "id"
-QT_MOC_LITERAL(40, 533, 7) // "OnClose"
+QT_MOC_LITERAL(40, 533, 7), // "OnClose"
+QT_MOC_LITERAL(41, 541, 14), // "OnEditedUserID"
+QT_MOC_LITERAL(42, 556, 16), // "OnEditedUserName"
+QT_MOC_LITERAL(43, 573, 20) // "restartPublishStream"
 
     },
     "ZegoAudioLive\0OnLoginRoom\0\0errorCode\0"
@@ -87,7 +90,8 @@ QT_MOC_LITERAL(40, 533, 7) // "OnClose"
     "AV::DeviceState\0state\0OnButtonClickedPublish\0"
     "OnCheckMute\0OnCheckTestEnv\0"
     "OnCheckManualPublish\0OnComboBoxValueChanged\0"
-    "id\0OnClose"
+    "id\0OnClose\0OnEditedUserID\0OnEditedUserName\0"
+    "restartPublishStream"
 };
 #undef QT_MOC_LITERAL
 
@@ -97,7 +101,7 @@ static const uint qt_meta_data_ZegoAudioLive[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-      14,   14, // methods
+      17,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
@@ -105,20 +109,23 @@ static const uint qt_meta_data_ZegoAudioLive[] = {
        0,       // signalCount
 
  // slots: name, argc, parameters, tag, flags
-       1,    2,   84,    2, 0x09 /* Protected */,
-       5,    2,   89,    2, 0x09 /* Protected */,
-       6,    2,   94,    2, 0x09 /* Protected */,
-       8,    3,   99,    2, 0x09 /* Protected */,
-      14,    6,  106,    2, 0x09 /* Protected */,
-      23,    3,  119,    2, 0x09 /* Protected */,
-      26,    2,  126,    2, 0x09 /* Protected */,
-      27,    4,  131,    2, 0x09 /* Protected */,
-      34,    0,  140,    2, 0x0a /* Public */,
-      35,    0,  141,    2, 0x0a /* Public */,
-      36,    0,  142,    2, 0x0a /* Public */,
-      37,    0,  143,    2, 0x0a /* Public */,
-      38,    1,  144,    2, 0x0a /* Public */,
-      40,    0,  147,    2, 0x0a /* Public */,
+       1,    2,   99,    2, 0x09 /* Protected */,
+       5,    2,  104,    2, 0x09 /* Protected */,
+       6,    2,  109,    2, 0x09 /* Protected */,
+       8,    3,  114,    2, 0x09 /* Protected */,
+      14,    6,  121,    2, 0x09 /* Protected */,
+      23,    3,  134,    2, 0x09 /* Protected */,
+      26,    2,  141,    2, 0x09 /* Protected */,
+      27,    4,  146,    2, 0x09 /* Protected */,
+      34,    0,  155,    2, 0x09 /* Protected */,
+      35,    0,  156,    2, 0x09 /* Protected */,
+      36,    0,  157,    2, 0x09 /* Protected */,
+      37,    0,  158,    2, 0x09 /* Protected */,
+      38,    1,  159,    2, 0x09 /* Protected */,
+      40,    0,  162,    2, 0x09 /* Protected */,
+      41,    0,  163,    2, 0x09 /* Protected */,
+      42,    0,  164,    2, 0x09 /* Protected */,
+      43,    0,  165,    2, 0x08 /* Private */,
 
  // slots: parameters
     QMetaType::Void, QMetaType::Int, QMetaType::QString,    3,    4,
@@ -134,6 +141,9 @@ static const uint qt_meta_data_ZegoAudioLive[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void, QMetaType::Int,   39,
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
 
        0        // eod
@@ -159,6 +169,9 @@ void ZegoAudioLive::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _i
         case 11: _t->OnCheckManualPublish(); break;
         case 12: _t->OnComboBoxValueChanged((*reinterpret_cast< int(*)>(_a[1]))); break;
         case 13: _t->OnClose(); break;
+        case 14: _t->OnEditedUserID(); break;
+        case 15: _t->OnEditedUserName(); break;
+        case 16: _t->restartPublishStream(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -204,13 +217,13 @@ int ZegoAudioLive::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 14)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 17;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 14)
+        if (_id < 17)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 14;
+        _id -= 17;
     }
     return _id;
 }

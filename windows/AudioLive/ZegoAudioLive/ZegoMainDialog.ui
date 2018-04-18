@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1048</width>
+    <width>1079</width>
     <height>700</height>
    </rect>
   </property>
@@ -74,14 +74,11 @@
            <number>0</number>
           </property>
           <item>
-           <layout class="QFormLayout" name="formLayout">
-            <property name="horizontalSpacing">
-             <number>27</number>
+           <layout class="QHBoxLayout" name="horizontalLayout_4">
+            <property name="spacing">
+             <number>0</number>
             </property>
-            <property name="verticalSpacing">
-             <number>9</number>
-            </property>
-            <item row="0" column="0">
+            <item>
              <widget class="QLabel" name="m_lbUserID">
               <property name="styleSheet">
                <string notr="true">font-family: 微软雅黑;
@@ -92,7 +89,20 @@ font-size: 16px;</string>
               </property>
              </widget>
             </item>
-            <item row="0" column="1">
+            <item>
+             <spacer name="horizontalSpacer_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QLineEdit" name="m_edUserID">
               <property name="minimumSize">
                <size>
@@ -130,14 +140,11 @@ font-size: 16px;</string>
            </spacer>
           </item>
           <item>
-           <layout class="QFormLayout" name="formLayout_3">
-            <property name="horizontalSpacing">
-             <number>28</number>
+           <layout class="QHBoxLayout" name="horizontalLayout_5">
+            <property name="spacing">
+             <number>0</number>
             </property>
-            <property name="verticalSpacing">
-             <number>9</number>
-            </property>
-            <item row="1" column="0">
+            <item>
              <widget class="QLabel" name="m_lbUserName">
               <property name="styleSheet">
                <string notr="true">font-family: 微软雅黑;
@@ -148,7 +155,20 @@ font-size: 16px;</string>
               </property>
              </widget>
             </item>
-            <item row="1" column="1">
+            <item>
+             <spacer name="horizontalSpacer_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+              <property name="sizeHint" stdset="0">
+               <size>
+                <width>40</width>
+                <height>20</height>
+               </size>
+              </property>
+             </spacer>
+            </item>
+            <item>
              <widget class="QLineEdit" name="m_edUserName">
               <property name="minimumSize">
                <size>
@@ -188,14 +208,11 @@ font-size: 16px;</string>
          </spacer>
         </item>
         <item>
-         <layout class="QFormLayout" name="formLayout_2">
-          <property name="horizontalSpacing">
-           <number>25</number>
-          </property>
-          <property name="verticalSpacing">
+         <layout class="QHBoxLayout" name="horizontalLayout_3">
+          <property name="spacing">
            <number>0</number>
           </property>
-          <item row="1" column="0">
+          <item>
            <widget class="QLabel" name="m_lbAppID">
             <property name="styleSheet">
              <string notr="true">font-family: 微软雅黑;
@@ -206,7 +223,20 @@ font-size: 16px;</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item>
+           <spacer name="horizontalSpacer_3">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QLineEdit" name="m_edAppID">
             <property name="minimumSize">
              <size>
@@ -247,14 +277,11 @@ font-size: 16px;</string>
          </spacer>
         </item>
         <item>
-         <layout class="QFormLayout" name="formLayout_4">
-          <property name="horizontalSpacing">
-           <number>10</number>
-          </property>
-          <property name="verticalSpacing">
+         <layout class="QHBoxLayout" name="horizontalLayout_2">
+          <property name="spacing">
            <number>0</number>
           </property>
-          <item row="1" column="0">
+          <item>
            <widget class="QLabel" name="m_lbAppSign">
             <property name="styleSheet">
              <string notr="true">font-family: 微软雅黑;
@@ -265,7 +292,20 @@ font-size: 16px;</string>
             </property>
            </widget>
           </item>
-          <item row="1" column="1">
+          <item>
+           <spacer name="horizontalSpacer_2">
+            <property name="orientation">
+             <enum>Qt::Horizontal</enum>
+            </property>
+            <property name="sizeHint" stdset="0">
+             <size>
+              <width>40</width>
+              <height>20</height>
+             </size>
+            </property>
+           </spacer>
+          </item>
+          <item>
            <widget class="QTextEdit" name="m_edAppSign">
             <property name="minimumSize">
              <size>

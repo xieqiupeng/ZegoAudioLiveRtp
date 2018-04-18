@@ -2,7 +2,7 @@
 
 #include <QObject>
 #include <QVector>
-#include "ZegoSDKSignal.h"
+#include "Signal/ZegoSDKSignal.h"
 #include "AudioRoom.h"
 #include "AudioRoomDefines.h"
 #include "AudioRoomDefines-IM.h"
@@ -11,7 +11,7 @@
 #include "RoomDefines.h"
 #include "AVDefines.h"
 #include "AudioRoom-Volume.h"
-#include "ZegoSettingsModel.h"
+#include "Settings/ZegoSettingsModel.h"
 
 //demo版本的枚举类型
 typedef enum _Version

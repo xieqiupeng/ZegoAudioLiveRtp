@@ -1,6 +1,6 @@
 #pragma once
 
-#include "ZegoStreamModel.h"
+#include "Model/ZegoStreamModel.h"
 #include "AudioRoomCallback.h"
 #include "AudioRoomCallback-Player.h"
 #include "AudioRoomCallback-Publisher.h"

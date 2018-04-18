@@ -1,5 +1,6 @@
 #include "ZegoMainDialog.h"
 #include <QDebug>
+#include <qtimer.h>
 ZegoAudioLive::ZegoAudioLive(QWidget *parent)
 	: QDialog(parent)
 {
@@ -30,6 +31,8 @@ ZegoAudioLive::ZegoAudioLive(QWidget *parent)
 	connect(ui.m_checkTestEnv, &QCheckBox::clicked, this, &ZegoAudioLive::OnCheckTestEnv);
 	connect(ui.m_checkMute, &QCheckBox::clicked, this, &ZegoAudioLive::OnCheckMute);
 	connect(ui.m_cbAppVersion, SIGNAL(currentIndexChanged(int)), this, SLOT(OnComboBoxValueChanged(int)));
+	connect(ui.m_edUserID, &QLineEdit::editingFinished, this, &ZegoAudioLive::OnEditedUserID);
+	connect(ui.m_edUserName, &QLineEdit::editingFinished, this, &ZegoAudioLive::OnEditedUserName);
 }
 
 ZegoAudioLive::~ZegoAudioLive()
@@ -43,8 +46,8 @@ void ZegoAudioLive::initDialog()
 	setFixedSize(this->width(), this->height());
 
 	//用户名和用户ID不可改
-	ui.m_edUserID->setEnabled(false);
-	ui.m_edUserName->setEnabled(false);
+	//ui.m_edUserID->setEnabled(false);
+	//ui.m_edUserName->setEnabled(false);
 
 	//成员列表模型初始化
 	m_memberListModel = new QStringListModel(this);
@@ -151,6 +154,9 @@ void ZegoAudioLive::switchBeforePublishArea(bool isEnabled)
 		ui.m_checkManual->setEnabled(isEnabled);
 		ui.m_checkTestEnv->setEnabled(isEnabled);
 	}
+
+	ui.m_edUserID->setEnabled(isEnabled);
+	ui.m_edUserName->setEnabled(isEnabled);
 
 }
 
@@ -266,18 +272,63 @@ void ZegoAudioLive::OnPublishStateUpdate(int stateCode, const QString& strStream
 		ui.m_switchStartPublish->setEnabled(true);
 
 		addLogString(QStringLiteral("推流成功: %1").arg(m_strPublishStreamID));
-
-		StreamPtr pStream(new QZegoStreamModel(m_strPublishStreamID, m_strEdUserId, m_strEdUserName, ""));
-		streamList.push_back(pStream);
-		//将该流加入到成员列表中
-		insertStringListModelItem(m_memberListModel, m_strPublishStreamID, m_memberListModel->rowCount());
+		
+		bool alreadyHave = true;
+		for (auto stream : streamList)
+		{
+			if (stream->getStreamId() == m_strPublishStreamID)
+			{
+				alreadyHave = false;
+				break;
+			}
+		}
+		if (alreadyHave) {
+			StreamPtr pStream(new QZegoStreamModel(m_strPublishStreamID, m_strEdUserId, m_strEdUserName, ""));
+			streamList.push_back(pStream);
+			//将该流加入到成员列表中
+			insertStringListModelItem(m_memberListModel, m_strPublishStreamID, m_memberListModel->rowCount());
+		}
+		//当推流成功后,清空推流计数
+		publishCount = 0;
+		isPrompt = true;
 	}
 	else
 	{
 		addLogString(QStringLiteral("推流失败: %1, error: %2").arg(m_strPublishStreamID).arg(stateCode));
+
+		startRestartPublishTimer();
 	}
 
 }
+
+void ZegoAudioLive::startRestartPublishTimer() {
+	if (publishCount<10) {
+		addLogString(QStringLiteral("开启重新推流定时器"));
+		if (timer != nullptr) {
+			timer->stop();
+			delete timer;
+			timer = nullptr;
+		}
+		timer = new QTimer(this);
+		connect(timer, SIGNAL(timeout()), this, SLOT(restartPublishStream()));
+		timer->setSingleShot(true);
+		timer->start(6000);
+		++publishCount;
+	}
+	else if(isPrompt){
+		//只提示一次
+		isPrompt = false;
+		addLogString(QStringLiteral("尝试重新推流次数过多 publishCount:%1").arg(publishCount));
+	}
+}
+
+
+void ZegoAudioLive::restartPublishStream() {
+	addLogString(QStringLiteral("尝试重新推流"));
+	AUDIOROOM::RestartPublishStream();
+}
+
+
 void ZegoAudioLive::OnPlayStateUpdate(int stateCode, StreamPtr pStream)
 {
 	if (stateCode == 0)
@@ -334,6 +385,26 @@ void ZegoAudioLive::OnAudioDeviceChanged(AV::AudioDeviceType deviceType, const Q
 	}
 }
 
+QVector<QString> ZegoAudioLive::handleStringAppSign(QString appSign)
+{
+	QVector<QString> vecAppSign;
+	appSign = appSign.simplified();
+	appSign.remove(",");
+	appSign.remove(" ");
+	qDebug() << "appSign = " << appSign;
+
+	for (int i = 0; i < appSign.size(); i += 4)
+	{
+		//qDebug() << "curString = " << appSign.mid(i, 4);
+		QString hexSign = appSign.mid(i, 4);
+		hexSign.remove("0x");
+		hexSign.toUpper();
+		vecAppSign.append(hexSign);
+	}
+	qDebug() << vecAppSign;
+	return vecAppSign;
+}
+
 //ui回调
 void ZegoAudioLive::OnButtonClickedPublish()
 {
@@ -363,8 +434,17 @@ void ZegoAudioLive::OnButtonClickedPublish()
 			return;
 		}
 
+		//推流前重新检查UserID和UserName
+		if (m_strEdUserId.simplified().isEmpty() || m_strEdUserName.simplified().isEmpty())
+		{
+			QMessageBox::information(NULL, QStringLiteral("开播失败"), QStringLiteral("用户ID或用户名不能为空"));
+			return;
+		}
+
 		//进入直播后左边设置区域不可用
 		switchBeforePublishArea(false);
+
+		AUDIOROOM::SetUser(m_strEdUserId.toStdString().c_str(), m_strEdUserName.toStdString().c_str());
 
 		if (isCustom)
 		{
@@ -373,10 +453,20 @@ void ZegoAudioLive::OnButtonClickedPublish()
 
 			unsigned int appId = ui.m_edAppID->text().toUInt();
 			QString strAppSign = ui.m_edAppSign->toPlainText();
-			unsigned char *appSign = new unsigned char[32];
+			QVector<QString>vecAppSign = handleStringAppSign(strAppSign);
+			if (vecAppSign.size() != 32)
+			{
+				QMessageBox::information(NULL, QStringLiteral("提示"), QStringLiteral("AppSign 必须为32位"));
+				switchBeforePublishArea(true);
+				return;
+			}
 
+			unsigned char *appSign = new unsigned char[32];
 			for (int i = 0; i < 32; i++)
-				appSign[i] = strAppSign.at(i).unicode();
+			{
+				bool ok;
+				appSign[i] = (unsigned char)vecAppSign[i].toInt(&ok, 16);
+			}
 
 			if (!AUDIOROOM::InitSDK(appId, appSign, 32))
 			{
@@ -433,6 +523,8 @@ void ZegoAudioLive::OnButtonClickedPublish()
 	}
 
 }
+
+
 
 void ZegoAudioLive::OnCheckMute()
 {
@@ -498,6 +590,22 @@ void ZegoAudioLive::OnComboBoxValueChanged(int id)
 	}
 	//标题
 	this->setWindowTitle(QStringLiteral("ZegoAudioLive(%1) | 版本: %2").arg(ui.m_cbAppVersion->currentText()).arg(AUDIOROOM::GetSDKVersion()));
+}
+
+void ZegoAudioLive::OnEditedUserID()
+{
+	QString userID = ui.m_edUserID->text();
+	m_strEdUserId = userID.simplified();
+	m_userConfig.SetUserId(m_strEdUserId);
+	m_userConfig.SaveConfig();
+}
+
+void ZegoAudioLive::OnEditedUserName()
+{
+	QString userName = ui.m_edUserName->text();
+	m_strEdUserName = userName.simplified();
+	m_userConfig.SetUserName(m_strEdUserName);
+	m_userConfig.SaveConfig();
 }
 
 void ZegoAudioLive::OnClose()
